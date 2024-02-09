@@ -1,23 +1,26 @@
 // корневой компонент приложения
-import s from './App.module.css';
-import Header from '../Header/Header'
+import './App.css';
+import { Routes, Route } from 'react-router-dom';
 import Movies from '../Movies/Movies'
 import Main from '../Main/Main';
 import SavedMovies from '../SavedMovies/SavedMovies';
-import User from '../User/User';
-import Navigation from '../Navigation/Navigation';
-import Footer from '../Footer/Footer';
+import Profile from '../User/Profile/Profile';
+import Login from '../User/Login/Login';
+import Register from '../User/Register/Register';
+import NotFoundPage from '../NotFoundPage/NotFoundPage';
 
 function App() {
   return (
-    <div className={s.app}>
-      <Header></Header>
-      <Navigation></Navigation>
-      <Main></Main>
-      <Movies></Movies>
-      <SavedMovies></SavedMovies>
-      <User></User>
-      <Footer></Footer>
+    <div className="App">
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/movies" element={<Movies />} />
+        <Route path="/saved-movies" element={<SavedMovies />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/signin" element={<Login />} />
+        <Route path="/signup" element={<Register />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
     </div>
   );
 }

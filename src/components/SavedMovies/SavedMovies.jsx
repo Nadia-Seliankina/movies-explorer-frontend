@@ -1,11 +1,13 @@
 // компонент страницы с сохранёнными карточками фильмов
-import s from './SavedMovies.module.css';
+import './SavedMovies.css';
+import Header from '../Header/Header';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
 import MoviesCard from './MoviesCard/MoviesCard';
 
 export default function SavedMovies() {
     return (
-        <div className={s.savedMovies}>
+        <div className="SavedMovies">
+            <Header></Header>
             <MoviesCardList></MoviesCardList>
             <MoviesCard></MoviesCard>
         </div>
