@@ -1,4 +1,8 @@
-.App {
+.app {
+  border: solid 1px rgb(206, 24, 191);
+}
+
+/*.App {
   text-align: center;
 }
 
@@ -35,4 +39,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+}*/
