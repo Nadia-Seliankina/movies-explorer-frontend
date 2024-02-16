@@ -1,10 +1,19 @@
 // компонент, который отвечает за меню навигации на сайте
-import s from './Navigation.module.css';
+import "./Navigation.css";
+import { NavLink } from "react-router-dom";
 
 export default function Navigation() {
-    return (
-        <div className={s.navigation}>
-            Navigation
-        </div>
-    );
+  return (
+    <div className="navigation">
+      <nav>
+        <NavLink to="/movies">Фильмы</NavLink>
+        <NavLink to="/saved-movies">Сохранённые фильмы</NavLink>
+      </nav>
+      <nav>
+        <NavLink to="/signup">Регистрация</NavLink>
+        <NavLink to="/signin">Авторизация</NavLink>
+        <NavLink to="/profile">Аккаунт</NavLink>
+      </nav>
+    </div>
+  );
 }

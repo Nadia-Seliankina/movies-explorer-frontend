@@ -1,10 +1,14 @@
 // компонент с навигацией по странице «О проекте»
-import s from './NavTab.module.css';
+import "./NavTab.css";
 
 export default function NavTab() {
-    return (
-        <div className={s.navTab}>
-            NavTab
-        </div>
-    );
+  return (
+    <nav className="navTab">
+      <ul className="navTab__list">
+        <li className="navTab__item"><a className="navTab__link" href="#aboutProject">О проекте</a></li>
+        <li className="navTab__item"><a className="navTab__link" href="#techs">Технологии</a></li>
+        <li className="navTab__item"><a className="navTab__link" href="#aboutMe">Студент</a></li>
+      </ul>
+    </nav>
+  );
 }

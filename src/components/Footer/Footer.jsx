@@ -1,10 +1,17 @@
 // презентационный компонент, который отрисовывает подвал
-import s from './Footer.module.css';
+import './Footer.css';
 
 export default function Footer() {
     return (
-        <div className={s.footer}>
-            Footer
-        </div>
+        <footer className="footer">
+            <p>Учебный проект Яндекс.Практикум х BeatFilm.</p>
+            <div>
+                <p>© 2020</p>
+                <div>
+                    <a href="*">Яндекс.Практикум</a>
+                    <a href="*">Github</a>
+                </div>
+            </div>
+        </footer>
     );
 }
