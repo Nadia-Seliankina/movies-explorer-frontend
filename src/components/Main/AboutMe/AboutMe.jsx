@@ -18,7 +18,7 @@ export default function AboutMe() {
         как прошёл курс по веб-разработке, начал заниматься фриланс-заказами и
         ушёл с постоянной работы.
       </p>
-      <a className="aboutMe__link" href="https://github.com/Nadia-Seliankina">Github</a>
+      <a className="aboutMe__link" href="https://github.com/Nadia-Seliankina" target='_blank' rel="noopener noreferrer">Github</a>
     </section>
   );
 }

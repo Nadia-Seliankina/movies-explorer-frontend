@@ -10,7 +10,7 @@ export default function Header() {
   return (
     <header className="header">
       <Logo></Logo>
-      <Navigatiion></Navigatiion>
+      <Navigatiion isLogged={true}></Navigatiion>
     </header>
   );
 }
