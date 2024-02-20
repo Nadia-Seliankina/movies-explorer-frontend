@@ -1,0 +1,54 @@
+.btnProfile {
+  height: 32px;
+  width: 100px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50px;
+  box-sizing: border-box;
+  display: flex;
+  text-decoration: none;
+  flex-direction: row;
+  column-gap: 7px;
+  align-items: center;
+  justify-content: center;
+}
+
+.btnProfile:hover {
+  cursor: pointer;
+  opacity: 70%;
+}
+
+.btnProfile__img {
+  height: 14px;
+  width: 12px;
+}
+
+.btnProfile__text {
+  margin: 0;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.143;
+  color: #000000;
+  text-decoration: none;
+  text-align: left;
+}
+
+.btnProfile_navigation {
+  display: flex;
+}
+
+@media screen and (max-width: 1024px) {
+  .btnProfile_navigation {
+    display: none;
+  }
+
+  .btnProfile {
+    position: absolute;
+    bottom: 90px;
+  }
+}
+
+@media screen and (max-width: 544px) {
+  .btnProfile {
+    bottom: 46px;
+  }
+}

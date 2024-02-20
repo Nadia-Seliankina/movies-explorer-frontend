@@ -78,40 +78,6 @@
   opacity: 70%;
 }
 
-.navigation__profile {
-  height: 32px;
-  width: 100px;
-  border: 2px solid rgba(0, 0, 0, 0.1);
-  border-radius: 50px;
-  box-sizing: border-box;
-  display: flex;
-  text-decoration: none;
-  flex-direction: row;
-  column-gap: 7px;
-  align-items: center;
-  justify-content: center;
-}
-
-.navigation__profile:hover {
-  cursor: pointer;
-  opacity: 70%;
-}
-
-.navigation__profile-img {
-  height: 14px;
-  width: 12px;
-}
-
-.navigation__profile-text {
-  margin: 0;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 1.143;
-  color: #000000;
-  text-decoration: none;
-  text-align: left;
-}
-
 .navigation__button {
   display: none;
 }
@@ -122,9 +88,6 @@
     justify-content: flex-end;
   }
   .navigation__films {
-    display: none;
-  }
-  .navigation__profile {
     display: none;
   }
   .navigation__button {

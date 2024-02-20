@@ -8,6 +8,7 @@ import Profile from '../User/Profile/Profile';
 import Login from '../User/Login/Login';
 import Register from '../User/Register/Register';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
+import PopupMenu from '../PopupMenu/PopupMenu';
 
 function App() {
   return (
@@ -21,6 +22,10 @@ function App() {
         <Route path="/signup" element={<Register />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
+      {/* Pop-up menu*/}
+      <PopupMenu
+          isOpen={true}
+      />
     </div>
   );
 }
