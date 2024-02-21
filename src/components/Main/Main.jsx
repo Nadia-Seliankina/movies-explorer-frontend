@@ -13,16 +13,16 @@ import Footer from '../Footer/Footer';
 export default function Main() {
   return (
     <>
-      <Header></Header>
+      <Header isLight={false} />
       <main className="main">
-        <Promo></Promo>
-        <NavTab></NavTab>
-        <AboutProject></AboutProject>
-        <Techs></Techs>
-        <AboutMe></AboutMe>
-        <Portfolio></Portfolio>
+        <Promo />
+        <NavTab />
+        <AboutProject />
+        <Techs />
+        <AboutMe />
+        <Portfolio />
       </main>
-      <Footer></Footer>
+      <Footer />
     </>
   );
 }

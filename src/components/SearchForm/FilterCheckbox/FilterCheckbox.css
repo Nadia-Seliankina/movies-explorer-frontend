@@ -1,0 +1,75 @@
+.filterCheckbox-invisible {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(0 0 0 0);
+}
+
+.filterCheckbox {
+    height: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+}
+
+.filterCheckbox-visible {
+    display: flex;
+    position: relative;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.385;
+    color: #000000;
+    padding-left: 50px;
+    align-items: center;
+}
+
+.filterCheckbox-visible::before {
+    content: "";
+    display: flex;
+    width: 34px;
+    height: 14px;
+    position: absolute;
+    left: 0;
+    background-color: #EBEBEB;
+    border-radius: 20px;
+    transition: background-color .3s;
+}
+
+.filterCheckbox-visible::after {
+    content: "";
+    display: flex;
+    position: absolute;
+    left: 2px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #F5F5F5;
+    transition: background-color .3s, left .3s;
+}
+
+.filterCheckbox-invisible:checked + .filterCheckbox-visible::before {
+    background-color: #2BE080;
+}
+
+.filterCheckbox-invisible:checked + .filterCheckbox-visible::after {
+    background-color: #FFFFFF;
+    left: 22px;
+}
+
+@media screen and (max-width: 544px) {
+    .filterCheckbox {
+        position: absolute;
+        height: 20px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        bottom: -66px;
+    }
+    .filterCheckbox-visible {
+        font-size: 11px;
+        line-height: 1.636;
+        padding-left: 48px;
+    }
+}

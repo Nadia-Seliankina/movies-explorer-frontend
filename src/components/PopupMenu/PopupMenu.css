@@ -1,3 +1,7 @@
+.popupMenu {
+    display: none;
+}
+
 @media screen and (max-width: 1024px) {
   .popupMenu {
     position: fixed;
@@ -13,6 +17,10 @@
     visibility: hidden;
     transition: visibility 0.5s, opacity 0.5s linear;
     z-index: 3;
+  }
+
+  .popupMenu_none {
+    display: none;
   }
 
   .popupMenu_opened {

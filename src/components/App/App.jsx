@@ -1,14 +1,14 @@
 // корневой компонент приложения
-import './App.css';
-import { Routes, Route } from 'react-router-dom';
-import Movies from '../Movies/Movies'
-import Main from '../Main/Main';
-import SavedMovies from '../SavedMovies/SavedMovies';
-import Profile from '../User/Profile/Profile';
-import Login from '../User/Login/Login';
-import Register from '../User/Register/Register';
-import NotFoundPage from '../NotFoundPage/NotFoundPage';
-import PopupMenu from '../PopupMenu/PopupMenu';
+import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import Movies from "../Movies/Movies";
+import Main from "../Main/Main";
+import SavedMovies from "../SavedMovies/SavedMovies";
+import Profile from "../User/Profile/Profile";
+import Login from "../User/Login/Login";
+import Register from "../User/Register/Register";
+import NotFoundPage from "../NotFoundPage/NotFoundPage";
+import PopupMenu from "../PopupMenu/PopupMenu";
 
 function App() {
   return (
@@ -24,7 +24,7 @@ function App() {
       </Routes>
       {/* Pop-up menu*/}
       <PopupMenu
-          isOpen={true}
+          isOpen={false}
       />
     </div>
   );

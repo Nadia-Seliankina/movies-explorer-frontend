@@ -7,6 +7,10 @@
     min-height: 74px;
 }
 
+.header_light {
+    background-color: #FAFAFA;
+}
+
 @media screen and (max-width: 1024px) {
     .header {
         padding: 0 30px;

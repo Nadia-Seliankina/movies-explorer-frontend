@@ -1,19 +1,24 @@
 // компонент страницы с поиском по фильмам
-import SearchForm from './SearchForm/SearchForm';
-import Preloader from './Preloader/Preloader';
-import MoviesCard from './MoviesCard/MoviesCard';
-import MoviesCardList from './MoviesCardList/MoviesCardList';
-import Header from '../Header/Header';
-import './Movies.css';
+import "./Movies.css";
+import SearchForm from "../SearchForm/SearchForm";
+/*import Preloader from "./Preloader/Preloader";*/
+import MoviesCardList from "../MoviesCardList/MoviesCardList";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 
 export default function Movies() {
-    return (
-        <div className='Movies'>
-            <Header></Header>
-            <SearchForm></SearchForm>
-            <Preloader></Preloader>
-            <MoviesCard></MoviesCard>
-            <MoviesCardList></MoviesCardList>
+  return (
+    <>
+      <Header isLight={true}></Header>
+      <main className="movies">
+        <SearchForm />
+        {/*<Preloader></Preloader>*/}
+        <MoviesCardList />
+        <div className="movies__more">
+          <button className="movies__btn-more">Ещё</button>
         </div>
-    );
+      </main>
+      <Footer />
+    </>
+  );
 }

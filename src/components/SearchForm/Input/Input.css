@@ -1,0 +1,46 @@
+.input {
+    border: none;
+    padding: 0;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.11;
+    box-sizing: border-box;
+    color: #000000;
+    width: 100%;
+    margin: 0 19px 0 33px;
+}
+
+.input:focus {
+    outline: none;
+    border-bottom: 1px solid #3456F3;
+}
+
+.input::-webkit-input-placeholder {
+    color: #A0A0A0;
+}
+
+.input::-moz-placeholder {
+    color: #A0A0A0;
+}
+
+.input::-ms-input-placeholder {
+    color: #A0A0A0;
+}
+
+.input::placeholder {
+    color: #A0A0A0;
+}
+
+@media screen and (max-width: 1024px) {
+    .input {
+        margin: 0 19px 0 43px;
+    }
+}
+
+@media screen and (max-width: 544px) {
+    .input {
+        margin: 0 19px 0 0;
+        font-size: 14px;
+        line-height: 1.429;
+    }
+}
