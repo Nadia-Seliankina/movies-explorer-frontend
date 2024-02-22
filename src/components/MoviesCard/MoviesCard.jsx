@@ -1,7 +1,7 @@
 // компонент одной карточки фильма
 import "./MoviesCard.css";
 
-export default function MoviesCard({ src, alt, title, duration, saved }) {
+export default function MoviesCard({ src, alt, title, duration, saved, isPathSaved }) {
   return (
     <div className="moviesCard">
       <button className="moviesCard__btn-play">
@@ -13,7 +13,7 @@ export default function MoviesCard({ src, alt, title, duration, saved }) {
           <time className="moviesCard__time" dateTime="PT1H42M">{duration}</time>
         </div>
         <button
-          className={`moviesCard__btn-save ${
+          className={isPathSaved ? "moviesCard__btn-delete" : `moviesCard__btn-save ${
             saved ? "moviesCard__btn-save_saved" : ""
           }`}
         ></button>

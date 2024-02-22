@@ -13,7 +13,7 @@ export default function Movies() {
       <main className="movies">
         <SearchForm />
         {/*<Preloader></Preloader>*/}
-        <MoviesCardList />
+        <MoviesCardList isPathSaved={false}/>
         <div className="movies__more">
           <button className="movies__btn-more">Ещё</button>
         </div>

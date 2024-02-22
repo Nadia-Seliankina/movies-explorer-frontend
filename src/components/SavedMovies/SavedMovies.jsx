@@ -1,15 +1,19 @@
 // компонент страницы с сохранёнными карточками фильмов
 import './SavedMovies.css';
 import Header from '../Header/Header';
-import MoviesCardList from './MoviesCardList/MoviesCardList';
-import MoviesCard from './MoviesCard/MoviesCard';
+import SearchForm from '../SearchForm/SearchForm';
+import Footer from '../Footer/Footer';
+import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
 export default function SavedMovies() {
     return (
-        <div className="SavedMovies">
-            <Header></Header>
-            <MoviesCardList></MoviesCardList>
-            <MoviesCard></MoviesCard>
-        </div>
+        <>
+        <Header isLight={true}></Header>
+        <main className="savedMovies">
+        <SearchForm />
+        <MoviesCardList isPathSaved={true}/>
+        </main>
+        <Footer />
+        </>
     );
 }

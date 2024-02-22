@@ -78,6 +78,23 @@
     background-color: #2BE080;
 }
 
+.moviesCard__btn-delete {
+    height: 16px;
+    width: 16px;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    background-image: url(../../images/delete.svg);
+    background-position: center;
+    background-size: cover;
+    background-position: center;
+}
+
+.moviesCard__btn-delete:hover {
+    cursor: pointer;
+    opacity: 80%;
+}
+
 @media screen and (max-width: 1024px) {
     .moviesCard__btn-play {
         height: 190px;

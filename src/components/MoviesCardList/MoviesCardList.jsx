@@ -18,56 +18,56 @@ import pic13 from "../../images/pic__COLOR_pic (13).jpg";
 import pic14 from "../../images/pic__COLOR_pic (14).jpg";
 import pic15 from "../../images/pic__COLOR_pic (15).jpg";
 
-export default function MoviesCardList() {
+export default function MoviesCardList({ isPathSaved }) {
   return (
     <ul className="moviesCardList">
       <li className="moviesCardList-item">
-        <MoviesCard src={pic0} alt="фильм" title="33 слова о дизайне" dateTime="PT1H42M" duration="1ч42м" saved={false}></MoviesCard>
+        <MoviesCard src={pic0} alt="фильм" title="33 слова о дизайне" dateTime="PT1H42M" duration="1ч42м" saved={false} isPathSaved={isPathSaved}></MoviesCard>
       </li>
       <li className="moviesCardList-item">
-        <MoviesCard src={pic1} alt="фильм" title="33 слова о дизайне" dateTime="PT1H42M" duration="1ч42м" saved={true}></MoviesCard>
+        <MoviesCard src={pic1} alt="фильм" title="33 слова о дизайне" dateTime="PT1H42M" duration="1ч42м" saved={true} isPathSaved={isPathSaved}></MoviesCard>
       </li>
       <li className="moviesCardList-item">
-        <MoviesCard src={pic2} alt="фильм" title="33 слова о дизайне" dateTime="PT1H42M" duration="1ч42м" saved={false}></MoviesCard>
+        <MoviesCard src={pic2} alt="фильм" title="33 слова о дизайне" dateTime="PT1H42M" duration="1ч42м" saved={false} isPathSaved={isPathSaved}></MoviesCard>
       </li>
       <li className="moviesCardList-item">
-        <MoviesCard src={pic3} alt="фильм" title="33 слова о дизайне" dateTime="PT1H42M" duration="1ч42м" saved={false}></MoviesCard>
+        <MoviesCard src={pic3} alt="фильм" title="33 слова о дизайне" dateTime="PT1H42M" duration="1ч42м" saved={false} isPathSaved={isPathSaved}></MoviesCard>
       </li>
       <li className="moviesCardList-item">
-        <MoviesCard src={pic4} alt="фильм" title="33 слова о дизайне" dateTime="PT1H42M" duration="1ч42м" saved={true}></MoviesCard>
+        <MoviesCard src={pic4} alt="фильм" title="33 слова о дизайне" dateTime="PT1H42M" duration="1ч42м" saved={true} isPathSaved={isPathSaved}></MoviesCard>
       </li>
       <li className="moviesCardList-item">
-        <MoviesCard src={pic5} alt="фильм" title="33 слова о дизайне" dateTime="PT1H42M" duration="1ч42м" saved={false}></MoviesCard>
+        <MoviesCard src={pic5} alt="фильм" title="33 слова о дизайне" dateTime="PT1H42M" duration="1ч42м" saved={false} isPathSaved={isPathSaved}></MoviesCard>
       </li>
       <li className="moviesCardList-item">
-        <MoviesCard src={pic6} alt="фильм" title="33 слова о дизайне" dateTime="PT1H42M" duration="1ч42м" saved={false}></MoviesCard>
+        <MoviesCard src={pic6} alt="фильм" title="33 слова о дизайне" dateTime="PT1H42M" duration="1ч42м" saved={false} isPathSaved={isPathSaved}></MoviesCard>
       </li>
       <li className="moviesCardList-item">
-        <MoviesCard src={pic7} alt="фильм" title="33 слова о дизайне" dateTime="PT1H42M" duration="1ч42м" saved={true}></MoviesCard>
+        <MoviesCard src={pic7} alt="фильм" title="33 слова о дизайне" dateTime="PT1H42M" duration="1ч42м" saved={true} isPathSaved={isPathSaved}></MoviesCard>
       </li>
       <li className="moviesCardList-item">
-        <MoviesCard src={pic8} alt="фильм" title="33 слова о дизайне" dateTime="PT1H42M" duration="1ч42м" saved={false}></MoviesCard>
+        <MoviesCard src={pic8} alt="фильм" title="33 слова о дизайне" dateTime="PT1H42M" duration="1ч42м" saved={false} isPathSaved={isPathSaved}></MoviesCard>
       </li>
       <li className="moviesCardList-item">
-        <MoviesCard src={pic9} alt="фильм" title="33 слова о дизайне" dateTime="PT1H42M" duration="1ч42м" saved={false}></MoviesCard>
+        <MoviesCard src={pic9} alt="фильм" title="33 слова о дизайне" dateTime="PT1H42M" duration="1ч42м" saved={false} isPathSaved={isPathSaved}></MoviesCard>
       </li>
       <li className="moviesCardList-item">
-        <MoviesCard src={pic10} alt="фильм" title="33 слова о дизайне" dateTime="PT1H42M" duration="1ч42м" saved={true}></MoviesCard>
+        <MoviesCard src={pic10} alt="фильм" title="33 слова о дизайне" dateTime="PT1H42M" duration="1ч42м" saved={true} isPathSaved={isPathSaved}></MoviesCard>
       </li>
       <li className="moviesCardList-item">
-        <MoviesCard src={pic11} alt="фильм" title="33 слова о дизайне" dateTime="PT1H42M" duration="1ч42м" saved={false}></MoviesCard>
+        <MoviesCard src={pic11} alt="фильм" title="33 слова о дизайне" dateTime="PT1H42M" duration="1ч42м" saved={false} isPathSaved={isPathSaved}></MoviesCard>
       </li>
       <li className="moviesCardList-item">
-        <MoviesCard src={pic12} alt="фильм" title="33 слова о дизайне" dateTime="PT1H42M" duration="1ч42м" saved={false}></MoviesCard>
+        <MoviesCard src={pic12} alt="фильм" title="33 слова о дизайне" dateTime="PT1H42M" duration="1ч42м" saved={false} isPathSaved={isPathSaved}></MoviesCard>
       </li>
       <li className="moviesCardList-item">
-        <MoviesCard src={pic13} alt="фильм" title="33 слова о дизайне" dateTime="PT1H42M" duration="1ч42м" saved={true}></MoviesCard>
+        <MoviesCard src={pic13} alt="фильм" title="33 слова о дизайне" dateTime="PT1H42M" duration="1ч42м" saved={true} isPathSaved={isPathSaved}></MoviesCard>
       </li>
       <li className="moviesCardList-item">
-        <MoviesCard src={pic14} alt="фильм" title="33 слова о дизайне" dateTime="PT1H42M" duration="1ч42м" saved={false}></MoviesCard>
+        <MoviesCard src={pic14} alt="фильм" title="33 слова о дизайне" dateTime="PT1H42M" duration="1ч42м" saved={false} isPathSaved={isPathSaved}></MoviesCard>
       </li>
       <li className="moviesCardList-item">
-        <MoviesCard src={pic15} alt="фильм" title="33 слова о дизайне" dateTime="PT1H42M" duration="1ч42м" saved={false}></MoviesCard>
+        <MoviesCard src={pic15} alt="фильм" title="33 слова о дизайне" dateTime="PT1H42M" duration="1ч42м" saved={false} isPathSaved={isPathSaved}></MoviesCard>
       </li>
     </ul>
   );
