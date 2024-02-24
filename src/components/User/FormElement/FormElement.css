@@ -71,8 +71,13 @@
     text-align: center;
 }
 
-.formElement__link_span {
+.formElement__link-span {
+    margin: 16px 0 0;
+    text-decoration: none;
     color: #3456F3;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.21;
 }
 
 .formElement__link:hover {
@@ -90,6 +95,7 @@
 @media screen and (max-width: 544px) {
     .formElement {
         width: 260px;
+        align-items: center;
     }
     .formElement__top {
         height: 253px;
@@ -111,9 +117,14 @@
         bottom: 59px;
     }
     .formElement__link {
-        margin: 5px 0 0;
+        /*margin: 5px 0 0;*/
         position: absolute;
         bottom: 30px;
+        font-size: 12px;
+        line-height: 1.21;
+        text-align: center;
+    }
+    .formElement__link-span {
         font-size: 12px;
         line-height: 1.21;
     }

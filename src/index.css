@@ -15,58 +15,12 @@
   background-color: #FAFAFA;
 }
 
-/*body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}*/
-
-@media screen and (max-width: 1024px) {
-  
-}
-
-@media screen and (max-width: 544px) {
-  
-}
-
 /* Основной код для разрешения 1280px */
 /* стили для стандартных компьютеров и ноутбуков */
 
-/*@media screen and (max-width: 768px) {
-    /* стили для планшетов */
-/*}
-@media screen and (max-width: 320px) {
-    /* стили для мобильных устройств */
-/*}*/
-
-/* 1440, 1280, 1024, 768 пикселей и минимальный — 320 пикселей */
-
-/* Основной код для разрешения 1024px */
-/*@media screen and (min-width: 2560px) {
-  /* стили для больших мониторов с разрешением 4K */
-/*}
-/*@media screen and (min-width: 1440px) {
-  /* стили для больших настольных компьютеров и ноутбуков */
-/*}
 @media screen and (max-width: 1024px) {
-  /* стили для планшета в альбомной ориентации */
-/*}
-@media screen and (max-width: 768px) {
-  /* стили для планшета */
-/*}
-@media screen and (max-width: 425px) {
-  /* стили для широкого смартфона */
-/*}
-@media screen and (max-width: 375px) {
-  /* стили для среднего смартфона */
-/*}
-@media screen and (max-width: 320px) {
-  /* стили для малого смартфона */
-/*}*/
+    /* стили для планшетов 768px */
+}
+@media screen and (max-width: 544px) {
+    /* стили для мобильных устройств 320px*/
+}

@@ -15,6 +15,7 @@ export default function Login() {
           value="pochta@yandex.ru"
           required={true}
           spanId="userEmail-error"
+          placeholder="pochta@yandex.ru"
         />
         <FieldsetElement
           label="Пароль"
@@ -24,6 +25,7 @@ export default function Login() {
           value="••••••••••••••"
           required={true}
           spanId="password-error"
+          placeholder="Пароль"
         />
       </FormElement>
     </main>

@@ -8,6 +8,7 @@ export default function FieldsetElement({
   value,
   required,
   spanId,
+  placeholder
 }) {
   return (
     <div className="fieldsetElement">
@@ -21,6 +22,8 @@ export default function FieldsetElement({
         name={name}
         value={value}
         required={required}
+        placeholder={placeholder}
+        minLength="2"
       />
       <span className="fieldsetElement__error" id={spanId}>
         Что-то пошло не так...

@@ -19,6 +19,7 @@ export default function Register() {
           value="Виталий"
           required={true}
           spanId="userName-error"
+          placeholder="Виталий"
         />
         <FieldsetElement
           label="E-mail"
@@ -28,6 +29,7 @@ export default function Register() {
           value="pochta@yandex.ru"
           required={true}
           spanId="userEmail-error"
+          placeholder="pochta@yandex.ru"
         />
         <FieldsetElement
           label="Пароль"
@@ -37,6 +39,7 @@ export default function Register() {
           value="••••••••••••••"
           required={true}
           spanId="password-error"
+          placeholder="Пароль"
         />
       </FormElement>
     </main>

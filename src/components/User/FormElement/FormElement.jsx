@@ -25,11 +25,11 @@ export default function FormElement({ children, greeting, button, isSignup }) {
             </Routes>*/}
       {isSignup ? (
         <NavLink className="formElement__link" to="/signin">
-          Уже зарегистрированы? <span className="formElement__link formElement__link_span">Войти</span>
+          Уже зарегистрированы? <span className="formElement__link-span">Войти</span>
         </NavLink>
       ) : (
         <NavLink className="formElement__link" to="/signup">
-          Ещё не зарегистрированы? <span className="formElement__link formElement__link_span">Регистрация</span>
+          Ещё не зарегистрированы? <span className="formElement__link-span">Регистрация</span>
         </NavLink>
       )}
     </form>
