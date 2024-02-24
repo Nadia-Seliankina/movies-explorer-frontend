@@ -58,6 +58,7 @@
   align-items: center;
   justify-content: flex-start;
   column-gap: 16px;
+  margin-left: 45px;
 }
 
 .navigation__link {

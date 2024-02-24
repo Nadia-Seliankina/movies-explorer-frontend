@@ -1,10 +1,31 @@
 // компонент страницы авторизации
-import s from './Login.module.css';
+import FieldsetElement from "../FieldsetElement/FieldsetElement";
+import FormElement from "../FormElement/FormElement";
+import "./Login.css";
 
 export default function Login() {
-    return (
-        <div className={s.login}>
-            Login
-        </div>
-    );
+  return (
+    <main className="login">
+      <FormElement greeting="Рады видеть!" button="Войти" isSignup={false}>
+        <FieldsetElement
+          label="E-mail"
+          inputId="userEmail"
+          type="text"
+          name="userEmail"
+          value="pochta@yandex.ru"
+          required={true}
+          spanId="userEmail-error"
+        />
+        <FieldsetElement
+          label="Пароль"
+          inputId="password"
+          type="password"
+          name="password"
+          value="••••••••••••••"
+          required={true}
+          spanId="password-error"
+        />
+      </FormElement>
+    </main>
+  );
 }
