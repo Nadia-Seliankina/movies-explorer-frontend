@@ -1,0 +1,24 @@
+.header {
+    max-width: 100%;
+    display: flex;
+    flex-direction: row;
+    padding: 0 70px;
+    background-color: #DDDEE3;
+    min-height: 74px;
+}
+
+.header_light {
+    background-color: #FAFAFA;
+}
+
+@media screen and (max-width: 1024px) {
+    .header {
+        padding: 0 30px;
+    }
+}
+
+@media screen and (max-width: 544px) {
+    .header {
+        padding: 0 14px;
+    }
+}

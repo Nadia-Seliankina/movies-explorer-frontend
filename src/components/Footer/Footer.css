@@ -1,0 +1,116 @@
+.footer {
+    max-width: 100%;
+    display: flex;
+    min-height: 172px;
+    padding: 0 70px;
+    flex-direction: column;
+    align-items: center;
+    background-color: #F8F8F8;
+    box-sizing: border-box;
+}
+
+.footer__title {
+    min-height: 115px;
+    width: 100%;
+    border-bottom: 1px solid #E8E8E8;
+    padding-bottom: 20px;
+    margin: 0;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.21;
+    text-align: center;
+    color: #A0A0A0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    box-sizing: border-box;
+}
+
+.footer__info {
+    width: 100%;
+    min-height: 56px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+.footer__author {
+    margin: 0;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.21;
+    color: #000000;
+}
+
+.footer__links {
+    display: flex;
+    column-gap: 20px;
+    flex-direction: row;
+    align-items: center;
+}
+
+.footer__link {
+    margin: auto;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.21;
+    color: #000000;
+    text-align: right;
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.footer__link:hover {
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+@media screen and (max-width: 1024px) {
+    .footer {
+        padding: 0 30px;
+        background-color: #FAFAFA;
+    }
+}
+
+@media screen and (max-width: 544px) {
+    .footer {
+        min-height: 253px;
+        padding: 0 10px;
+    }
+    
+    .footer__title {
+        padding-bottom: 21px;
+        font-size: 12px;
+        line-height: 1.21;
+    }
+    
+    .footer__info {
+        min-height: 137px;
+        flex-direction: column-reverse;
+    }
+    
+    .footer__author {
+        font-size: 12px;
+        line-height: 1.21;
+        color: #A0A0A0;
+        padding-bottom: 20px;
+    }
+    
+    .footer__links {
+        display: flex;
+        row-gap: 13px;
+        flex-direction:column;
+        padding-top: 31px;
+    }
+    
+    .footer__link {
+        font-size: 12px;
+        line-height: 1.21;
+        text-align: center;
+    }
+}

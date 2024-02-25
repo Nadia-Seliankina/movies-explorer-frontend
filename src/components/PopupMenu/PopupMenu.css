@@ -1,0 +1,112 @@
+.popupMenu {
+    display: none;
+}
+
+@media screen and (max-width: 1024px) {
+  .popupMenu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: visibility 0.5s, opacity 0.5s linear;
+    z-index: 3;
+  }
+
+  .popupMenu_none {
+    display: none;
+  }
+
+  .popupMenu_opened {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .popupMenu__container {
+    height: 100%;
+    width: 520px;
+    background-color: #FAFAFA;
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 159px;
+  }
+
+  .popupMenu__btn-close {
+    height: 22px;
+    width: 22px;
+    display: flex;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    box-sizing: border-box;
+    flex-direction: column;
+    position: absolute;
+    transform: rotate(45deg);
+    right: 26.16px;
+    top: 26.16px;
+  }
+  .popupMenu__btn-close::before {
+    content: '';
+    width: 3px;
+    height: 22px;
+    background-color: #000000;
+    position: absolute;
+    left: 9.5px;
+  }
+  .popupMenu__btn-close::after {
+    content: '';
+    width: 22px;
+    height: 3px;
+    background-color: #000000;
+    position: absolute;
+    bottom: 9.5px;
+  }
+  .popupMenu__btn-close:hover {
+    cursor: pointer;
+    opacity: 70%;
+  }
+  .popupMenu__link {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.21;
+    text-align: center;
+    color: #000000;
+    text-decoration: none;
+    margin: 0 0 28px;
+  }
+  .popupMenu__link_active {
+    text-decoration: underline;
+    text-underline-offset: 8px;
+    text-decoration-thickness: 2px;
+  }
+}
+
+@media screen and (max-width: 544px) {
+    .popupMenu__container {
+        height: 100%;
+        width: 320px;
+        padding-top: 144px;
+      }
+    
+      .popupMenu__btn-close {
+        right: 17.16px;
+        top: 17.16px;
+      }
+      .popupMenu__link {
+        margin: 0 0 24px;
+      }
+      .popupMenu__link_active {
+        text-underline-offset: 8px;
+      }
+}
+
+  

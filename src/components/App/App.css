@@ -1,0 +1,10 @@
+.app {
+  box-sizing: border-box;
+  font-family: "Inter", serif, Arial, Helvetica, sans-serif;
+  font-style: normal;
+  color: #000000;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}

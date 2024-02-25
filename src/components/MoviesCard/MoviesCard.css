@@ -1,0 +1,114 @@
+.moviesCard {
+    width: 100%;
+    height: 100%;
+    background-color: #FFFFFF;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}
+
+.moviesCard__btn-play {
+    height: 151px;
+    width: 100%;
+    border: none;
+    padding: 0;
+    background-color: transparent;
+    box-sizing: border-box;
+    object-position: center;
+    cursor: pointer;
+}
+
+.moviesCard__img {
+    height: 151px;
+    max-width: 100%;
+    object-fit: cover;
+    display: block;
+    object-position: center;
+}
+
+.moviesCard__container {
+    max-width: 100%;
+    display: flex;
+    flex-direction: row;
+    padding: 15px 12px 0;
+    justify-content: space-between;
+}
+
+.moviesCard__info {
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.moviesCard__title {
+    margin: 0;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.21;
+    color: #000000;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.moviesCard__time {
+    margin: 0;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 1.21;
+    color: #A0A0A0;
+}
+
+.moviesCard__btn-save {
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    border: 2px solid #FFFFFF;
+    background-color: #F4F4F4;
+    /*filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.09));*/
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.09);
+}
+
+.moviesCard__btn-save_saved {
+    background-color: #2BE080;
+}
+
+.moviesCard__btn-delete {
+    height: 16px;
+    width: 16px;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    background-image: url(../../images/delete.svg);
+    background-position: center;
+    background-size: cover;
+    background-position: center;
+}
+
+.moviesCard__btn-delete:hover {
+    cursor: pointer;
+    opacity: 80%;
+}
+
+@media screen and (max-width: 1024px) {
+    .moviesCard__btn-play {
+        height: 190px;
+    }
+    .moviesCard__img {
+        height: 190px;
+    }
+}
+
+@media screen and (max-width: 544px) {
+    .moviesCard__btn-play {
+        height: 168px;
+    }
+    .moviesCard__img {
+        height: 168px;
+    }
+}
