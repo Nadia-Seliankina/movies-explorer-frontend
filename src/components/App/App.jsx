@@ -15,7 +15,7 @@ function App() {
     <div className="app">
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/movies" element={<Movies isSearchEmpty={true} />} />
+        <Route path="/movies" element={<Movies isSearchEmpty={false} />} />
         <Route path="/saved-movies" element={<SavedMovies />} />
         <Route path="/profile" element={<Profile isProfile={true} isEditOk={false} isEditBad={false}/>} />
         <Route path="/signin" element={<Login />} />

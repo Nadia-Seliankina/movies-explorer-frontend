@@ -5,12 +5,12 @@ import Input from "./Input/Input.jsx";
 import "./SearchForm.css";
 import lensGray from "../../images/lens-gray.svg"
 
-export default function SearchForm() {
+export default function SearchForm({ onChangeInput, valueInput, onSubmit }) {
   return (
-    <form className="searchForm">
+    <form className="searchForm" onSubmit={onSubmit}>
       <div className="searchForm__container">
         <img className="searchForm__lens" src={lensGray} alt="лупа" />
-        <Input />
+        <Input value={valueInput} onChange={onChangeInput} />
         <BtnSearch />
         <div className="searchForm__vertical-line"></div>
         <FilterCheckbox />
