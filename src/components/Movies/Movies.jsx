@@ -6,14 +6,15 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import Preloader from "../Preloader/Preloader";
 import { useEffect, useState } from "react";
-import api from "../../utils/ApiUnsplash";
+import moviesApi from "../../utils/MoviesApi";
 
 // функция нормализации, принимает массив карточек, возращает его без лишнего мусора
 const mapCards = (cards) => {
   return cards.map((item) => ({
-    src: item.urls.full,
-    title: item.alt_description,
     id: item.id,
+    title: item.nameRU,
+    src: item.image.url,
+    duration: item.duration
   }));
 };
 
@@ -21,7 +22,7 @@ export default function Movies({ isSearchEmpty }) {
   const [searchQuery, setSearchQuery] = useState("");
   // здесь будем хранить карточки, которые получили с сервера
   const [cards, setCards] = useState([]);
-  // спинер статуса загрузки карточек
+  // preloader статуса загрузки карточек
   const [isLoading, setIsLoading] = useState(false);
 
   function handleInputChange(e) {
@@ -30,15 +31,15 @@ export default function Movies({ isSearchEmpty }) {
 
   function handleSearchFormSubmit(e) {
     e.preventDefault();
-    handleRequest();
+    handleRequestSearch();
   }
 
   // Запросы к серверу
-  function handleRequest() {
+  function handleRequestSearch() {
     setIsLoading(true);
-    api
-      .search(searchQuery)
-      .then((res) => setCards(mapCards(res.results)))
+      moviesApi
+      .getAllMovies()
+      .then((res) => setCards(mapCards(res)))
       .catch((err) => console.log(err))
       .finally(() => {
         setIsLoading(false);
@@ -46,13 +47,8 @@ export default function Movies({ isSearchEmpty }) {
   }
 
   useEffect(() => {
-    handleRequest();
+    handleRequestSearch();
   }, []);
-
-  // Временный вывод в консоль для просмотра карточек
-  //useEffect(() => {
-  //api.search(searchQuery).then(res => console.log(res.results));
-  //}, [cards]);
 
   return (
     <>
