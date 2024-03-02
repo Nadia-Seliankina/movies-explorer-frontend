@@ -4,8 +4,8 @@ class MoviesApi {
   }
 
   getAllMovies() {
-    return fetch(`${this._url}`, {}).then((res) => {
-      // console.log(res);
+    return fetch(`${this._url}`, {})
+    .then((res) => {
       return res.ok
         ? res.json()
         : res.json().then((errData) => Promise.reject(errData));

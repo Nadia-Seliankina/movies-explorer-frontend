@@ -18,7 +18,9 @@ https://github.com/Nadia-Seliankina/movies-explorer-frontend/tree/level-2
 * Используются стандартные браузерные тексты ошибок.
 * Код организован с помощью парадигмы объектно-ориентированного программирования.
 * Инфраструктурные файлы проекта созданы через CRA.
-* Приложение сделано на React
+* Приложение сделано на React.
+* React-router
+* React Context
 
 **Структура**
 *	для «Реакт-компонентов» директория components/;
@@ -29,4 +31,5 @@ https://github.com/Nadia-Seliankina/movies-explorer-frontend/tree/level-2
 **Планы**
 * 2 языка
 * светлая/темная тема
+* больше языков
 * поменять Виталия

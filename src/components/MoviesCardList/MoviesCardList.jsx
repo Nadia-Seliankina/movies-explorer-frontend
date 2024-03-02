@@ -28,9 +28,9 @@ export default function MoviesCardList({ cards, isPathSaved }) {
             src={`${urlBeatfilm}${cardData.src}`}
             alt="фильм"
             title={cardData.title}
-            //dateTime="PT1H42M"
             dateTime={`PT${getHours(cardData.duration)}H${getMinutes(cardData.duration)}M`}
             duration={getFormattedDuration(cardData.duration)}
+            trailerLink={cardData.trailerLink}
             saved={false}
             isPathSaved={isPathSaved}
           ></MoviesCard>

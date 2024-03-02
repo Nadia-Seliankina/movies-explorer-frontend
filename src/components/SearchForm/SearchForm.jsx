@@ -5,7 +5,7 @@ import Input from "./Input/Input.jsx";
 import "./SearchForm.css";
 import lensGray from "../../images/lens-gray.svg"
 
-export default function SearchForm({ onChangeInput, valueInput, onSubmit }) {
+export default function SearchForm({ onChangeInput, valueInput, onSubmit, checked, setChecked }) {
   return (
     <form className="searchForm" onSubmit={onSubmit}>
       <div className="searchForm__container">
@@ -13,7 +13,7 @@ export default function SearchForm({ onChangeInput, valueInput, onSubmit }) {
         <Input value={valueInput} onChange={onChangeInput} />
         <BtnSearch />
         <div className="searchForm__vertical-line"></div>
-        <FilterCheckbox />
+        <FilterCheckbox checked={checked} setChecked={setChecked}/>
       </div>
       <div className="searchForm__line"></div>
     </form>

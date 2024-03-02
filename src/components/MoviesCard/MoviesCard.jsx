@@ -1,12 +1,12 @@
 // компонент одной карточки фильма
 import "./MoviesCard.css";
 
-export default function MoviesCard({ src, alt, title, duration, dateTime, saved, isPathSaved }) {
+export default function MoviesCard({ src, alt, title, duration, dateTime, saved, isPathSaved, trailerLink }) {
   return (
     <div className="moviesCard">
-      <button className="moviesCard__btn-play">
+      <a className="moviesCard__btn-play" href={trailerLink} target="_blank" rel="noopener noreferrer">
         <img className="moviesCard__img" src={src} alt={alt} />
-      </button>
+      </a>
       <div className="moviesCard__container">
         <div className="moviesCard__info">
           <h2 className="moviesCard__title">{title}</h2>
