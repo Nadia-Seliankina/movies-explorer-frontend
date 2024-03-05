@@ -2,44 +2,96 @@
 import FormElement from "../FormElement/FormElement";
 import FieldsetElement from "../FieldsetElement/FieldsetElement";
 import "./Register.css";
+import { useState } from "react";
 
-export default function Register() {
+export default function Register({ onRegister }) {
+  // Стейт, в котором содержится значение инпута
+  const [userData, setUserData] = useState({
+    nameRegister: '',
+    emailRegister: '',
+    passwordRegister: '',
+  });
+  const [message, setMessage] = useState("");
+
+  const resetForm = () => {
+    setUserData({
+      ...userData,
+      nameRegister: '',
+      emailRegister: '',
+      passwordRegister: '',
+    });
+  };
+
+  const handleChange = (e) => {
+    const {name, value} = e.target;
+    setUserData({
+      ...userData,
+      [name]: value
+    });
+  };
+
+  const handleSubmit = (e) =>{
+    e.preventDefault();
+    if (!userData.passwordRegister || !userData.emailRegister || !userData.nameRegister){
+      return;
+    }
+    //onRegister({ nameRegister, emailRegister, passwordRegister });
+    let { nameRegister, emailRegister, passwordRegister } = userData;
+    onRegister(nameRegister, emailRegister, passwordRegister)
+    .then((res) => {
+      resetForm();
+      console.log('onLogin');
+    })
+    .catch((err) => {
+      setMessage(err.message || "Что-то пошло не так");
+    });;
+    
+    console.log('onRegister');
+  }
+
   return (
     <main className="register">
       <FormElement
         greeting="Добро пожаловать!"
         button="Зарегистрироваться"
         isSignup={true}
+        onSubmitForm={handleSubmit}
       >
         <FieldsetElement
           label="Имя"
-          inputId="userName"
+          inputId="nameRegister"
           type="text"
-          name="userName"
-          value="Виталий"
+          name="nameRegister"
+          value={userData.nameRegister}
           required={true}
-          spanId="userName-error"
-          placeholder="Виталий"
+          spanId="nameRegister-error"
+          placeholder=""
+          onChangeInput={handleChange}
+          spanMessage={message}
         />
         <FieldsetElement
           label="E-mail"
-          inputId="userEmail"
+          inputId="emailRegister"
           type="text"
-          name="userEmail"
-          value="pochta@yandex.ru"
+          name="emailRegister"
+          value={userData.emailRegister}
           required={true}
-          spanId="userEmail-error"
-          placeholder="pochta@yandex.ru"
+          spanId="emailRegister-error"
+          placeholder=""
+          onChangeInput={handleChange}
+          spanMessage={message}
         />
         <FieldsetElement
           label="Пароль"
-          inputId="password"
+          inputId="passwordRegister"
           type="password"
-          name="password"
-          value="••••••••••••••"
+          name="passwordRegister"
+          value={userData.passwordRegister}
           required={true}
-          spanId="password-error"
-          placeholder="Пароль"
+          spanId="passwordRegister-error"
+          placeholder=""
+          onChangeInput={handleChange}
+          spanMessage={message}
         />
       </FormElement>
     </main>

@@ -2,7 +2,7 @@
 import Header from "../../Header/Header";
 import "./Profile.css";
 
-export default function Profile({ isProfile, isEditOk, isEditBad }) {
+export default function Profile({ isProfile, isEditOk, isEditBad, onLogout, userData }) {
     return (
         <>
             <Header isLight={true}></Header>
@@ -18,8 +18,8 @@ export default function Profile({ isProfile, isEditOk, isEditBad }) {
                                 <input
                                     className="profile__input"
                                     type="text"
-                                    id="name"
-                                    name="name"
+                                    id="name-profile"
+                                    name="name-profile"
                                     required
                                     value="Виталий"
                                 />
@@ -30,18 +30,20 @@ export default function Profile({ isProfile, isEditOk, isEditBad }) {
                                 <input
                                     className="profile__input"
                                     type="email"
-                                    id="email"
-                                    name="email"
+                                    id="email-profile"
+                                    name="email-profile"
                                     required
                                     value="pochta@yandex.ru"
                                 />
                             </div>
                         </fieldset>
+                        <span className="profile__input-span" id="name-profile-error"></span>
+                        <span className="profile__input-span" id="email-profile-error"></span>
                         <span className={`profile__input-error ${isEditBad ? "" : "profile__input-error_off"}`}>При обновлении профиля произошла ошибка.</span>
                         <button className={`profile__btn-save ${isEditOk ? "" : ""} ${isEditBad ? "profile__btn-save_inactive" : ""} ${isProfile ? "profile__btn-save_off" : ""}`}>Сохранить</button>
                     </form>
                     <button className={`profile__btn-edit ${isProfile ? "" : "profile__btn-edit_off"}`}>Редактировать</button>
-                    <button className={`profile__btn-exit ${isProfile ? "" : "profile__btn-exit_off"}`}>Выйти из аккаунта</button>
+                    <button type="button" onClick={onLogout} className={`profile__btn-exit ${isProfile ? "" : "profile__btn-exit_off"}`}>Выйти из аккаунта</button>
                 </div>
             </main>
         </>

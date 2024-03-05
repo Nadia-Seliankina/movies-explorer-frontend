@@ -10,10 +10,10 @@ import AboutMe from './AboutMe/AboutMe'
 import Portfolio from './Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
 
-export default function Main() {
+export default function Main({ onClickMenu, isLogged }) {
   return (
     <>
-      <Header isLight={false} />
+      <Header isLight={false} onClickMenu={onClickMenu} isLogged={isLogged}/>
       <main className="main">
         <Promo />
         <NavTab />

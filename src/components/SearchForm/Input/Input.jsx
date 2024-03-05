@@ -5,7 +5,7 @@ export default function Input({ value, onChange }) {
     <input
       type="text"
       className="input"
-      name="movies"
+      name="moviesInput"
       placeholder="Фильм"
       value={value}
       onChange={onChange}

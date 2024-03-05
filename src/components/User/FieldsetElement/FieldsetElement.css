@@ -29,9 +29,13 @@
     box-sizing: border-box;
 }
 
-.fieldsetElement__input_error {
+.fieldsetElement__input:invalid:not(:focus) {
     color: #EE3465;
-}
+} 
+  
+/*.fieldsetElement__input_error {
+    color: #EE3465;
+}*/
 
 .fieldsetElement__input:focus {
     outline: none;
