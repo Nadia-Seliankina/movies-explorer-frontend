@@ -110,7 +110,6 @@ export default function Movies({ onClickMenu, isLogged }) {
           <Preloader />
         ) : (
           <>
-            {/*<MoviesCardList cards={foundCards} isPathSaved={false} />*/}
             {!isChecked && <MoviesCardList cards={foundCards} isPathSaved={false} />}
             {isChecked && <MoviesCardList cards={shortCards} isPathSaved={false} />}
             <div className="movies__more">

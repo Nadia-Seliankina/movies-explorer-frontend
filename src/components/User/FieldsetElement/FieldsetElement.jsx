@@ -10,7 +10,9 @@ export default function FieldsetElement({
   spanId,
   placeholder,
   onChangeInput,
-  spanMessage
+  spanMessage,
+  minLength,
+  ...props
 }) {
   return (
     <div className="fieldsetElement">
@@ -25,8 +27,9 @@ export default function FieldsetElement({
         value={value}
         required={required}
         placeholder={placeholder}
-        minLength="1"
         onChange={onChangeInput}
+        minLength={minLength}
+        {...props}
       />
       <span className="fieldsetElement__error" id={spanId}>{spanMessage}</span>
     </div>

@@ -23,6 +23,9 @@ function App() {
   const [isMenuPopupOpen, setIsMenuPopupOpen] = useState(false);
   // preloader статуса загрузки инфо
   const [isLoadingInfo, setIsLoadingInfo] = useState(true);
+  const [isUserSending, setIsUserSending] = useState(false);
+
+  const [messageErrorForm, setMessageErrorForm] = useState("");
 
   // Контекст, чтобы все компоненты приложения могли получить доступ к этим данным
   // Стейт, отвечающий за данные текущего пользователя
@@ -96,7 +99,7 @@ function App() {
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.log(`При проверке токена: ${err.message}`);
       })
       .finally(() => {
         setIsLoadingInfo(false);
@@ -137,33 +140,25 @@ function App() {
   //}, []);
 
   const handleRegister = (name, email, password) => {
-    setIsLoadingInfo(true);
+    setIsUserSending(true);
     return AuthApi.register(name, email, password)
       .then((res) => {
-        if (!res)
-          throw new Error(
-            "Ошибка авторизации. Проверьте имя пользователя или пароль"
-          );
+        //if (!res)
+          //throw new Error(
+            //"При регистрации пользователя произошла ошибка."
+          //);
         if (res) {
           console.log("handleRegister");
-          //localStorage.setItem("token", res.token);
-          //setLoggedIn(true);
-          //localStorage.setItem('loggedIn', true);
-          //const userData = {
-          //name: res.name,
-          //email: res.email,
-          //};
-          //setCurrentUser(userData);
-          //console.log(currentUser);
           doAuthenticate(res);
           navigate("/movies", { replace: true });
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.log(`При регистрации пользователя: ${err.message}`);
+        setMessageErrorForm(err.message);
       })
       .finally(() => {
-        setIsLoadingInfo(false);
+        setIsUserSending(false);
       });
   };
 
@@ -188,21 +183,12 @@ function App() {
   //}, []);
 
   const handleLogin = (email, password) => {
-    setIsLoadingInfo(true);
+    setIsUserSending(true);
     return AuthApi.authorize(email, password)
       .then((res) => {
         if (!res) throw new Error("Неправильное имя пользователя или пароль");
         if (res.token) {
           console.log("handleLogin");
-          //localStorage.setItem("token", res.token);
-          //setLoggedIn(true);
-          //localStorage.setItem('loggedIn', true);
-          //const userData = {
-          //name: res.name,
-          //email: res.email,
-          //};
-          //setCurrentUser(userData);
-          //console.log(currentUser);
           doAuthenticate(res);
           navigate("/movies", { replace: true });
           //setUserEmail(email);
@@ -210,10 +196,10 @@ function App() {
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.log(`При авторизации пользователя: ${err}`);
       })
       .finally(() => {
-        setIsLoadingInfo(false);
+        setIsUserSending(false);
       });
   };
 
@@ -317,7 +303,14 @@ function App() {
           <Route path="/signin" element={<Login onLogin={handleLogin} />} />
           <Route
             path="/signup"
-            element={<Register onRegister={handleRegister} />}
+            element={
+              <Register
+                onRegister={handleRegister}
+                isSending={isUserSending}
+                messageErrorForm={messageErrorForm}
+                loggedIn={loggedIn}
+              />
+            }
           />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
