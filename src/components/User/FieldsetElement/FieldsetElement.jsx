@@ -12,10 +12,11 @@ export default function FieldsetElement({
   onChangeInput,
   spanMessage,
   minLength,
+  formId,
   ...props
 }) {
   return (
-    <div className="fieldsetElement">
+    <fieldset form={formId} className="fieldsetElement">
       <label className="fieldsetElement__label" htmlFor={inputId}>
         {label}
       </label>
@@ -32,6 +33,6 @@ export default function FieldsetElement({
         {...props}
       />
       <span className="fieldsetElement__error" id={spanId}>{spanMessage}</span>
-    </div>
+    </fieldset>
   );
 }

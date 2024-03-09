@@ -6,14 +6,14 @@ export default function FormElement({ children, greeting, button, isSignup, onSu
   const classNameBtnSubmit = `formElement__btn-submit ${isDisabled ? "formElement__btn-submit_inactive" : ""}`;
 
   return (
-    <form className="formElement" noValidate onSubmit={onSubmitForm}>
+    <form id="formUser" className="formElement" onSubmit={onSubmitForm}>
       <div className="formElement__top">
         <Logo />
         <p className="formElement__greeting">{greeting}</p>
       </div>
-      <fieldset className="formElement__fieldset">{children}</fieldset>
+      <div className="formElement__fieldset">{children}</div>
       <span className="formElement__error">{messageErrorForm}</span>
-      <button className={classNameBtnSubmit} type="submit" disabled={isDisabled}>{button}</button>
+      <button className={classNameBtnSubmit} type="submit" disabled={isDisabled} >{button}</button>
       {isSignup ? (
         <NavLink className="formElement__link" to="/signin">
           Уже зарегистрированы? <span className="formElement__link-span">Войти</span>

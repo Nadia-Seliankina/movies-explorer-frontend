@@ -10,14 +10,7 @@ export const register = (name, email, password) => {
     },
     body: JSON.stringify({ name, email, password }),
     })
-    //.then(checkResponse)
-    .then((res) => {
-      console.log(res);
-      console.log('API register');
-      return res.ok
-        ? res.json()
-        : res.json().then((errData) => Promise.reject(errData));
-    });
+    .then(checkResponse);
 };
 
 export const authorize = (email, password) => {
@@ -29,14 +22,7 @@ export const authorize = (email, password) => {
     },
     body: JSON.stringify({ email, password }),
     })
-   //.then(checkResponse);
-   .then((res) => {
-    console.log(res);
-    console.log('API authorize');
-    return res.ok
-      ? res.json()
-      : res.json().then((errData) => Promise.reject(errData));
-  });
+   .then(checkResponse);
 };
 
 export const checkToken = (token) => {
@@ -48,14 +34,7 @@ export const checkToken = (token) => {
       "Authorization": `Bearer ${token}`,
     },
   })
-  //.then(checkResponse);
-  .then((res) => {
-    console.log(res);
-    console.log('API checkToken');
-    return res.ok
-      ? res.json()
-      : res.json().then((errData) => Promise.reject(errData));
-  });
+  .then(checkResponse);
 };
 
 //export const deleteJWT = (token) => {

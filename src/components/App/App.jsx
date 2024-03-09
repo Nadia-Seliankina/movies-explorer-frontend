@@ -27,6 +27,8 @@ function App() {
 
   const [messageErrorForm, setMessageErrorForm] = useState("");
 
+  const [isProfileEdit, setIsProfileEdit] = useState(false);
+
   // Контекст, чтобы все компоненты приложения могли получить доступ к этим данным
   // Стейт, отвечающий за данные текущего пользователя
   const [currentUser, setCurrentUser] = useState({});
@@ -143,10 +145,6 @@ function App() {
     setIsUserSending(true);
     return AuthApi.register(name, email, password)
       .then((res) => {
-        //if (!res)
-          //throw new Error(
-            //"При регистрации пользователя произошла ошибка."
-          //);
         if (res) {
           console.log("handleRegister");
           doAuthenticate(res);
@@ -186,7 +184,7 @@ function App() {
     setIsUserSending(true);
     return AuthApi.authorize(email, password)
       .then((res) => {
-        if (!res) throw new Error("Неправильное имя пользователя или пароль");
+        //if (!res) throw new Error("Неправильное имя пользователя или пароль");
         if (res.token) {
           console.log("handleLogin");
           doAuthenticate(res);
@@ -196,7 +194,8 @@ function App() {
         }
       })
       .catch((err) => {
-        console.log(`При авторизации пользователя: ${err}`);
+        console.log(`При авторизации пользователя: ${err.message}`);
+        setMessageErrorForm(err.message);
       })
       .finally(() => {
         setIsUserSending(false);
@@ -225,6 +224,42 @@ function App() {
   //.catch((err) => console.log(err));
   //}, []);
 
+  // РЕДАКТИРОВАНИЕ ПРОФИЛЯ
+  const handleUpdateProfile = (name, email) => {
+    setIsUserSending(true);
+    return mainApi.updateUserProfile(name, email)
+      .then((res) => {
+        //if (!res) throw new Error("Неправильное имя пользователя или пароль");
+        if (res) {
+          console.log("handleProfile");
+          const userData = {
+            name: res.name,
+            email: res.email,
+          };
+          setCurrentUser(userData);
+          console.log(currentUser);
+          setMessageErrorForm("Ваши данные успешно обновлены.");
+          function handleEndEdit() {
+            setIsProfileEdit(false);
+            setMessageErrorForm("");
+          }
+          // через 3 секунды выход из состояния редактирования профиля
+          setTimeout(handleEndEdit, 3000);
+        }
+      })
+      .catch((err) => {
+        console.log(`При обновлении профиля: ${err.message}`);
+        setMessageErrorForm(err.message);
+      })
+      .finally(() => {
+        setIsUserSending(false);
+      });
+  };
+
+  const handleClickEdit = (e) => {
+    setIsProfileEdit(true);
+  };
+
   // попап меню
   useEffect(() => {
     if (!isMenuPopupOpen) return;
@@ -239,11 +274,6 @@ function App() {
       document.removeEventListener("keydown", handleEscapeClose);
     };
   }, [isMenuPopupOpen]);
-
-  // наличие токена
-  //useEffect(() => {
-  //tokenCheck();
-  //}, [tokenCheck]);
 
   // при монтировании проверяем наличие токена
   useEffect(() => {
@@ -292,15 +322,26 @@ function App() {
                 element={Profile}
                 loggedIn={loggedIn}
                 onClickMenu={handleMenuClick}
-                isProfile={true}
-                isEditOk={false}
-                isEditBad={false}
+                isSending={isUserSending}
+                messageErrorForm={messageErrorForm}
                 onLogout={handleLogout}
-                userData={currentUser}
+                onProfile={handleUpdateProfile}
+                isProfileEdit={isProfileEdit}
+                onClickEdit={handleClickEdit}
               />
             }
           />
-          <Route path="/signin" element={<Login onLogin={handleLogin} />} />
+          <Route
+            path="/signin"
+            element={
+              <Login
+                onLogin={handleLogin}
+                isSending={isUserSending}
+                messageErrorForm={messageErrorForm}
+                loggedIn={loggedIn}
+              />
+            }
+          />
           <Route
             path="/signup"
             element={

@@ -1,35 +1,73 @@
 // возвращает значения, которые используем в компонентах
 import { useCallback, useState } from "react";
-
-//хук управления формой
-export function useForm() {
-  // хранит все данные инпутов форм
-  const [values, setValues] = useState({});
-
-  // при каждом изменении значения инпута
-  const handleChange = (event) => {
-    const target = event.target; // инпут, у кот. изменилось значение
-    const value = target.value; // текущее значение
-    const name = target.name; // значение атрибута
-    setValues({...values, [name]: value});
-  };
-
-  return {values, handleChange, setValues}; // используем это внутри компонента
-}
+import { RegExName } from "../utils/RegExName";
+import { RegExEmail } from "../utils/RegExEmail";
+import { RegExPassword } from "../utils/RegExPassword";
 
 //хук управления формой и валидации формы
 export function useFormWithValidation() {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
   const [isValid, setIsValid] = useState(false);
-
+  //const [isValid, setIsValid] = useState({});
+  
   const handleChange = (event) => {
-    const target = event.target;
-    const name = target.name;
-    const value = target.value;
-    setValues({...values, [name]: value});
-    setErrors({...errors, [name]: target.validationMessage }); // validationMessage хранит текущую ошибку
-    setIsValid(target.closest("form").checkValidity()); // получаем объект формы, получем статус валидности
+    const target = event.target; // инпут, у кот. изменилось значение
+    const name = target.name; // значение атрибута
+    const value = target.value; // текущее значение
+    setValues({ ...values, [name]: value });
+    setErrors({ ...errors, [name]: target.validationMessage }); // validationMessage хранит текущую ошибку
+    //setIsValid(target.closest(".formElement").checkValidity()); // получаем объект формы, получем статус валидности
+    //setIsValid({ ...isValid, [name]: target.closest(".formElement").checkValidity() });
+
+    if(name === "nameRegister") {
+      const isValidName = RegExName.test(value);
+      setIsValid(target.closest(".formElement").checkValidity());
+      setErrors({ ...errors, [name]: isValidName ? target.validationMessage : "Имя может содержать только латиницу, кириллицу, пробел или дефис." });
+      if(!isValidName) {
+        setIsValid(false);
+        //setIsValid({ ...isValid, [name]: false });
+      }
+    }
+
+    if(name === "nameProfile") {
+      const isValidName = RegExName.test(value);
+      setIsValid(target.closest(".profile__form").checkValidity());
+      setErrors({ ...errors, [name]: isValidName ? target.validationMessage : "Имя может содержать только латиницу, кириллицу, пробел или дефис." });
+      if(!isValidName) {
+        setIsValid(false);
+      }
+    }
+
+    if(name === "emailRegister" || name === "emailLogin") {
+      const isValidEmail = RegExEmail.test(value);
+      setIsValid(target.closest(".formElement").checkValidity());
+      setErrors({ ...errors, [name]: isValidEmail ? target.validationMessage : "Введите почту согласно шаблону. Допустимы точки, тире и нижнее подчеркивание." });
+      if(!isValidEmail) {
+        setIsValid(false);
+        //setIsValid({ ...isValid, [name]: false });
+      }
+    }
+
+    if(name === "emailProfile") {
+      const isValidEmail = RegExEmail.test(value);
+      setIsValid(target.closest(".profile__form").checkValidity());
+      setErrors({ ...errors, [name]: isValidEmail ? target.validationMessage : "Введите почту согласно шаблону. Допустимы точки, тире и нижнее подчеркивание." });
+      if(!isValidEmail) {
+        setIsValid(false);
+        //setIsValid({ ...isValid, [name]: false });
+      }
+    }
+
+    if(name === "passwordRegister" || name === "passwordLogin") {
+      //const isValidPassword = RegExPassword.test(value);
+      setIsValid(target.closest(".formElement").checkValidity());
+      //setErrors({ ...errors, [name]: isValidPassword ? target.validationMessage : "Введите от 8 до 16 символов." });
+      //if(!isValidPassword) {
+        //setIsValid(false);
+        ////setIsValid({ ...isValid, [name]: false });
+      //}
+    }
   };
 
   const resetForm = useCallback(
@@ -41,5 +79,5 @@ export function useFormWithValidation() {
     [setValues, setErrors, setIsValid]
   );
 
-  return { values, handleChange, errors, isValid, resetForm, setIsValid };
+  return { values, handleChange, errors, isValid, resetForm };
 }
