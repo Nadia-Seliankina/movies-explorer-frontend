@@ -17,11 +17,12 @@ const mapCards = (movies) => {
     duration: item.duration,
     nameRU: item.nameRU,
     nameEN: item.nameEN,
-    trailerLink: item.trailerLink
+    trailerLink: item.trailerLink,
   }));
 };
 
 export default function Movies({ onClickMenu, isLogged }) {
+  // значение инпута поиска
   const [searchQuery, setSearchQuery] = useState("");
   // здесь будем хранить карточки, которые получили с сервера
   const [initialCards, setinItialCards] = useState([]);
@@ -29,6 +30,8 @@ export default function Movies({ onClickMenu, isLogged }) {
   const [foundCards, setFoundCards] = useState([]);
   // фильтр короткометражек
   const [shortCards, setShortCards] = useState([]);
+  // количество отображаемых карточек
+  const [visibleCards, setVisibleCards] = useState(0);
   // preloader статуса загрузки карточек
   const [isLoading, setIsLoading] = useState(false);
   // инпут поиска
@@ -37,12 +40,20 @@ export default function Movies({ onClickMenu, isLogged }) {
   const [isSubmited, setIsSubmited] = useState(false);
   // значение чекбокса
   const [isChecked, setIsChecked] = useState(false);
+  // сообщение об ошибке после сабмита
+  const [messageErrorForm, setMessageErrorForm] = useState("");
+  // сообщение об отсутствии результатов поиска
+  const [isNofingFind, setIsNofingFind] = useState("");
+  // отображение кнопки "Ещё"
+  const [isBtnMoreVisible, setIsBtnMoreVisible] = useState(false);
 
   function handleInputChange(e) {
-    setSearchQuery(e.target.value);
-    if(e.target.value === "") {
+    setSearchQuery(e.target.value); // текущее значение инпута
+    if (e.target.value === "") {
       setIsSearchEmpty(true);
     }
+    setIsNofingFind("");
+    setVisibleCards(0);
   }
 
   function handleChangeCheckbox(e) {
@@ -53,51 +64,135 @@ export default function Movies({ onClickMenu, isLogged }) {
   function handleRequestSearch() {
     setIsLoading(true);
     moviesApi
-    .getAllMovies()
-    .then((res) => setinItialCards(mapCards(res)))
-    .catch((err) => console.log(err))
-    .finally(() => {
-    setIsLoading(false);
-    });
+      .getAllMovies()
+      .then((res) => {
+        if (res) {
+          setinItialCards(mapCards(res));
+        }
+      })
+      .catch((err) => {
+        console.log(`При поиске фильмов: ${err.message}`);
+        setMessageErrorForm(
+          "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз."
+        );
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
     setFoundCards(
       initialCards.filter((item) => {
-        return (item.nameRU || item.nameEN).toLowerCase().includes(searchQuery.toLowerCase());
+        return (item.nameRU || item.nameEN)
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase());
       })
     );
-    if(isChecked) {
+    if (isChecked) {
       setShortCards(
         foundCards.filter((item) => {
           return item.duration <= 40;
         })
       );
-    };
+    }
     setIsSubmited(false);
   }
 
   function handleSearchFormSubmit(e) {
     e.preventDefault();
     setIsSubmited(true);
-    //handleRequestSearch();
     setIsSearchEmpty(false);
+
+    if (window.innerWidth >= 1024) {
+      setVisibleCards((prevValue) => prevValue + 16);
+      console.log(`setVisibleCards 16 ${window.innerWidth}`);
+    }
+    if (544 < window.innerWidth && window.innerWidth < 1024) {
+      setVisibleCards((prevValue) => prevValue + 8);
+      console.log(`setVisibleCards 8 ${window.innerWidth}`);
+    }
+    if (window.innerWidth <= 544) {
+      setVisibleCards((prevValue) => prevValue + 5);
+      console.log(`setVisibleCards 5 ${window.innerWidth}`);
+    }
   }
 
-  //useEffect(() => {
-    //handleRequestSearch();
-  //}, []); // Выполнять 1 раз при mount - запрос на сервер
+  function handleShowMoreCards() {
+    if (window.innerWidth >= 1024) {
+      setVisibleCards((prevValue) => prevValue + 4);
+      console.log(`handleShowMoreCards ${window.innerWidth}`);
+    }
+    if (544 < window.innerWidth && window.innerWidth < 1024) {
+      setVisibleCards((prevValue) => prevValue + 2);
+      console.log(`handleShowMoreCards ${window.innerWidth}`);
+    }
+    if (window.innerWidth <= 544) {
+      setVisibleCards((prevValue) => prevValue + 2);
+      console.log(`handleShowMoreCards ${window.innerWidth}`);
+    }
+  }
+
+  useEffect(() => {
+    if (foundCards.length === 0) {
+      setIsNofingFind("Ничего не найдено");
+      setIsBtnMoreVisible(false);
+    }
+    console.log(foundCards.length);
+
+    if (foundCards.length > 16 && window.innerWidth >= 1024) {
+    setIsBtnMoreVisible(true);
+    }
+    if (foundCards.length > 8 && 544 < window.innerWidth && window.innerWidth < 1024) {
+      setIsBtnMoreVisible(true);
+    }
+    if (foundCards.length > 5 && window.innerWidth <= 544) {
+      setIsBtnMoreVisible(true);
+    }
+  }, [foundCards]);
 
   useEffect(() => {
     handleRequestSearch();
   }, [isSubmited]);
 
   useEffect(() => {
-    if(isChecked) {
-    handleRequestSearch();
+    if (isChecked) {
+      handleRequestSearch();
     }
   }, [isChecked]);
 
+  useEffect(() => {
+    // все карточки видны отключаем кнопку
+    if (foundCards.length <= visibleCards) {
+    setIsBtnMoreVisible(false);
+    }
+    console.log(`${foundCards.length} < ${visibleCards}`);
+  }, [foundCards, visibleCards]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setVisibleCards((prevValue) => prevValue);
+      }
+      if (544 < window.innerWidth && window.innerWidth < 1024) {
+        setVisibleCards((prevValue) => prevValue);
+      }
+      if (window.innerWidth <= 544) {
+        setVisibleCards((prevValue) => prevValue);
+      }
+    };
+    setTimeout(handleResize, 3000);
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
     <>
-      <Header isLight={true} onClickMenu={onClickMenu} isLogged={isLogged}></Header>
+      <Header
+        isLight={true}
+        onClickMenu={onClickMenu}
+        isLogged={isLogged}
+      ></Header>
       <main className="movies">
         <SearchForm
           onChangeInput={handleInputChange}
@@ -110,11 +205,29 @@ export default function Movies({ onClickMenu, isLogged }) {
           <Preloader />
         ) : (
           <>
-            {!isChecked && <MoviesCardList cards={foundCards} isPathSaved={false} />}
-            {isChecked && <MoviesCardList cards={shortCards} isPathSaved={false} />}
-            <div className="movies__more">
-              <button className="movies__btn-more">Ещё</button>
+            {!isChecked && (
+              <MoviesCardList
+                cards={foundCards}
+                isPathSaved={false}
+                visibleCards={visibleCards}
+              />
+            )}
+            {isChecked && (
+              <MoviesCardList cards={shortCards} isPathSaved={false} visibleCards={visibleCards}/>
+            )}
+            <div className={`movies__more ${
+                  isBtnMoreVisible ? "" : "movies__more_off"
+                }`}>
+              <button
+                className="movies__btn-more"
+                type="button"
+                onClick={handleShowMoreCards}
+              >
+                Ещё
+              </button>
             </div>
+            <div className="movies__nofind">{isNofingFind}</div>
+            <span className="movies__error">{messageErrorForm}</span>
           </>
         )}
       </main>

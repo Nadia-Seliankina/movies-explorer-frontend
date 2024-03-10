@@ -295,7 +295,7 @@ function App() {
             element={<Main onClickMenu={handleMenuClick} isLogged={loggedIn} />}
           />
           <Route
-            path="/movies"
+            path="/movies/*"
             element={
               <ProtectedRoute
                 element={Movies}

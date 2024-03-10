@@ -12,7 +12,7 @@
 
 .input:invalid:not(:focus) {
     color: #EE3465;
-} 
+}
 
 .input:focus {
     outline: none;

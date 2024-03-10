@@ -19,10 +19,12 @@ function getMinutes(data) {
   return minutes;
 }
 
-export default function MoviesCardList({ cards, isPathSaved }) {
+export default function MoviesCardList({ cards, isPathSaved, visibleCards }) {
+//export default function MoviesCardList({ cards, isPathSaved }) {
   return (
     <ul className="moviesCardList">
-      {cards.map((cardData) => (
+      {/*{cards.map((cardData) => (*/}
+      {cards.slice(0, visibleCards).map((cardData) => (
         <li key={cardData.id} className="moviesCardList-item">
           <MoviesCard
             src={`${urlBeatfilm}${cardData.src}`}

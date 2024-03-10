@@ -36,3 +36,4 @@ https://github.com/Nadia-Seliankina/movies-explorer-frontend/tree/level-2
 * показать/спрятать пароль при вводе
 * попап подверждения удаления карточки
 * попап с описанием фильма
+* JWT-токен хранить в куке

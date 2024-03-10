@@ -62,7 +62,6 @@ export default function Register({ onRegister, isSending, messageErrorForm, logg
           value={values.nameRegister || ""}
           required={true}
           spanId="nameRegister-error"
-          //placeholder=""
           onChangeInput={handleChange}
           spanMessage={errors.nameRegister || ""}
           minLength="2"
@@ -92,11 +91,10 @@ export default function Register({ onRegister, isSending, messageErrorForm, logg
           value={values.passwordRegister || ""}
           required={true}
           spanId="passwordRegister-error"
-          //placeholder=""
           onChangeInput={handleChange}
           spanMessage={errors.passwordRegister || ""}
-          minLength="8"
-          maxLength="16"
+          minLength={8}
+          //maxLength="16"
           autoComplete="off"
           //formId="formUser"
         />
