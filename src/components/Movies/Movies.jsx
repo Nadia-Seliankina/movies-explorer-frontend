@@ -5,28 +5,42 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import Preloader from "../Preloader/Preloader";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import moviesApi from "../../utils/MoviesApi";
+import mainApi from "../../utils/MainApi";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+
+const urlBeatfilm = "https://api.nomoreparties.co";
 
 // функция нормализации, принимает массив карточек, возращает его без лишнего мусора
 const mapCards = (movies) => {
   return movies.map((item) => ({
-    id: item.id,
-    title: item.nameRU,
-    src: item.image.url,
+    movieId: item.id,
+    image: `${urlBeatfilm}${item.image.url}`,
     duration: item.duration,
     nameRU: item.nameRU,
     nameEN: item.nameEN,
     trailerLink: item.trailerLink,
+    country: item.country,
+    director: item.director,
+    year: item.year,
+    description: item.description,
+    thumbnail: `${urlBeatfilm}${item.image.formats.thumbnail.url}`,
   }));
 };
 
-export default function Movies({ onClickMenu, isLogged }) {
+export default function Movies({ onClickMenu, isLogged, onLikeCard, savedCards }) {
   // значение инпута поиска
-  const [searchQuery, setSearchQuery] = useState("");
+  const searchQueryInStorage = localStorage.getItem("searchQuery")
+    ? localStorage.getItem("searchQuery")
+    : "";
+  const [searchQuery, setSearchQuery] = useState(searchQueryInStorage);
   // здесь будем хранить карточки, которые получили с сервера
   const [initialCards, setinItialCards] = useState([]);
   // карточки после сабмита поиска
+  //const foundCardsInStorage = localStorage.getItem("foundCards")
+    //? JSON.parse(localStorage.getItem("foundCards"))
+    //: [];
   const [foundCards, setFoundCards] = useState([]);
   // фильтр короткометражек
   const [shortCards, setShortCards] = useState([]);
@@ -39,6 +53,9 @@ export default function Movies({ onClickMenu, isLogged }) {
   // отправка формы
   const [isSubmited, setIsSubmited] = useState(false);
   // значение чекбокса
+  //const isCheckedInStorage = localStorage.getItem("isChecked")
+    //? JSON.parse(localStorage.getItem("isChecked"))
+    //: false;
   const [isChecked, setIsChecked] = useState(false);
   // сообщение об ошибке после сабмита
   const [messageErrorForm, setMessageErrorForm] = useState("");
@@ -46,6 +63,9 @@ export default function Movies({ onClickMenu, isLogged }) {
   const [isNofingFind, setIsNofingFind] = useState("");
   // отображение кнопки "Ещё"
   const [isBtnMoreVisible, setIsBtnMoreVisible] = useState(false);
+
+  // Подписываемся на контекст CurrentUserContext
+  const currentUser = useContext(CurrentUserContext);
 
   function handleInputChange(e) {
     setSearchQuery(e.target.value); // текущее значение инпута
@@ -86,6 +106,7 @@ export default function Movies({ onClickMenu, isLogged }) {
           .includes(searchQuery.toLowerCase());
       })
     );
+    
     if (isChecked) {
       setShortCards(
         foundCards.filter((item) => {
@@ -103,30 +124,28 @@ export default function Movies({ onClickMenu, isLogged }) {
 
     if (window.innerWidth >= 1024) {
       setVisibleCards((prevValue) => prevValue + 16);
-      console.log(`setVisibleCards 16 ${window.innerWidth}`);
     }
     if (544 < window.innerWidth && window.innerWidth < 1024) {
       setVisibleCards((prevValue) => prevValue + 8);
-      console.log(`setVisibleCards 8 ${window.innerWidth}`);
     }
     if (window.innerWidth <= 544) {
       setVisibleCards((prevValue) => prevValue + 5);
-      console.log(`setVisibleCards 5 ${window.innerWidth}`);
     }
+
+    localStorage.setItem("searchQuery", searchQuery);
+    localStorage.setItem("isChecked", isChecked);
+    localStorage.setItem("foundCards", JSON.stringify(foundCards));
   }
 
   function handleShowMoreCards() {
     if (window.innerWidth >= 1024) {
       setVisibleCards((prevValue) => prevValue + 4);
-      console.log(`handleShowMoreCards ${window.innerWidth}`);
     }
     if (544 < window.innerWidth && window.innerWidth < 1024) {
       setVisibleCards((prevValue) => prevValue + 2);
-      console.log(`handleShowMoreCards ${window.innerWidth}`);
     }
     if (window.innerWidth <= 544) {
       setVisibleCards((prevValue) => prevValue + 2);
-      console.log(`handleShowMoreCards ${window.innerWidth}`);
     }
   }
 
@@ -138,9 +157,13 @@ export default function Movies({ onClickMenu, isLogged }) {
     console.log(foundCards.length);
 
     if (foundCards.length > 16 && window.innerWidth >= 1024) {
-    setIsBtnMoreVisible(true);
+      setIsBtnMoreVisible(true);
     }
-    if (foundCards.length > 8 && 544 < window.innerWidth && window.innerWidth < 1024) {
+    if (
+      foundCards.length > 8 &&
+      544 < window.innerWidth &&
+      window.innerWidth < 1024
+    ) {
       setIsBtnMoreVisible(true);
     }
     if (foundCards.length > 5 && window.innerWidth <= 544) {
@@ -148,6 +171,7 @@ export default function Movies({ onClickMenu, isLogged }) {
     }
   }, [foundCards]);
 
+  // после каждого сабмита
   useEffect(() => {
     handleRequestSearch();
   }, [isSubmited]);
@@ -161,14 +185,13 @@ export default function Movies({ onClickMenu, isLogged }) {
   useEffect(() => {
     // все карточки видны отключаем кнопку
     if (foundCards.length <= visibleCards) {
-    setIsBtnMoreVisible(false);
+      setIsBtnMoreVisible(false);
     }
-    console.log(`${foundCards.length} < ${visibleCards}`);
-  }, [foundCards, visibleCards]);
+  }, [foundCards, visibleCards, isSubmited]);
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 1024) {
+      if (window.innerWidth  >= 1024) {
         setVisibleCards((prevValue) => prevValue);
       }
       if (544 < window.innerWidth && window.innerWidth < 1024) {
@@ -180,9 +203,9 @@ export default function Movies({ onClickMenu, isLogged }) {
     };
     setTimeout(handleResize, 3000);
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -210,14 +233,24 @@ export default function Movies({ onClickMenu, isLogged }) {
                 cards={foundCards}
                 isPathSaved={false}
                 visibleCards={visibleCards}
+                onLikeCard={onLikeCard}
+                savedCards={savedCards}
               />
             )}
             {isChecked && (
-              <MoviesCardList cards={shortCards} isPathSaved={false} visibleCards={visibleCards}/>
+              <MoviesCardList
+                cards={shortCards}
+                isPathSaved={false}
+                visibleCards={visibleCards}
+                onLikeCard={onLikeCard}
+                savedCards={savedCards}
+              />
             )}
-            <div className={`movies__more ${
-                  isBtnMoreVisible ? "" : "movies__more_off"
-                }`}>
+            <div
+              className={`movies__more ${
+                isBtnMoreVisible ? "" : "movies__more_off"
+              }`}
+            >
               <button
                 className="movies__btn-more"
                 type="button"

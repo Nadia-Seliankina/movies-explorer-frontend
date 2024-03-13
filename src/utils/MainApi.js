@@ -1,7 +1,6 @@
 class MainApi {
   constructor({ url, token }) {
     this._url = url;
-    //this._token = token;
   }
 
   #onResponse(res) {
@@ -31,44 +30,41 @@ class MainApi {
     }).then(this.#onResponse);
   }
 
-  //getMyMovies() {
-    //const token = localStorage.getItem('token');
-    //return fetch(`${this._url}/movies`, {
-      ////credentials: "include",
-      //headers: {
-        //"Content-Type": "application/json",
-        //authorization: this._token
-        //authorization: `Bearer ${token}`,
-      //},
-    //}).then(this.#onResponse);
-  //}
+  getMyMovies() {
+    const token = localStorage.getItem('token');
+    return fetch(`${this._url}/movies`, {
+      //credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    }).then(this.#onResponse);
+  }
 
-  //createMovie(data) {
-    //const token = localStorage.getItem('token');
-    //return fetch(`${this._url}/movies`, {
-      //method: 'POST',
-      ////credentials: "include",
-      //headers: {
-        //"Content-Type": "application/json",
-        //authorization: this._token
-        //authorization: `Bearer ${token}`,
-      //},
-      //body: JSON.stringify(data)
-    //}).then(this.#onResponse);
-  //}
+  createMovie(data) {
+    const token = localStorage.getItem('token');
+    return fetch(`${this._url}/movies`, {
+      method: 'POST',
+      //credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data)
+    }).then(this.#onResponse);
+  }
 
-  //deleteMovie(BDmovieId) {
-    //const token = localStorage.getItem('token');
-    //return fetch(`${this._url}/movies/${BDmovieId}`, {
-      //method: 'DELETE',
-      ////credentials: "include",
-      //headers: {
-        //"Content-Type": "application/json",
-        //authorization: this._token
-        //authorization: `Bearer ${token}`,
-      //},
-    //}).then(this.#onResponse);
-  //}
+  deleteMovie(BDmovieId) {
+    const token = localStorage.getItem('token');
+    return fetch(`${this._url}/movies/${BDmovieId}`, {
+      method: 'DELETE',
+      //credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    }).then(this.#onResponse);
+  }
 
   //NotFoundError() {
     //return fetch(`${this._url}/*`, {

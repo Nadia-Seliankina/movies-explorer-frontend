@@ -38,6 +38,11 @@ function App() {
   const loggedInStorage = JSON.parse(localStorage.getItem("loggedIn"));
   const [loggedIn, setLoggedIn] = useState(loggedInStorage);
 
+  // сохраненные карточки
+  const [savedCards, setSavedCards] = useState([]);
+  // выбранная карточка с фильмом
+  //const [selectedCard, setSelectedCard] = useState(null);
+
   const navigate = useNavigate();
 
   // управление попапом меню
@@ -203,26 +208,29 @@ function App() {
   };
 
   // ВЫХОД ИЗ АККАУНТА
-  const handleLogout = useCallback(() => {
+  //const handleLogout = useCallback(() => {
+    //console.log("handleLogout");
+    //setLoggedIn(false);
+    //localStorage.setItem("loggedIn", false);
+    //localStorage.removeItem("token");
+    //setCurrentUser({});
+    //navigate("/", { replace: true });
+    //localStorage.clear();
+  //}, []);
+
+  const handleLogout = () => {
     console.log("handleLogout");
     setLoggedIn(false);
     localStorage.setItem("loggedIn", false);
     localStorage.removeItem("token");
     setCurrentUser({});
     navigate("/", { replace: true });
-    //localStorage.removeItem("email");
-  }, []);
+    localStorage.clear();
+  };
 
-  // данные текущего пользователя
-  //useEffect(() => {
-  //mainApi
-  //.getUserActive()
-  //.then((dataUser) => {
-  //console.log(dataUser);
-  //setCurrentUser(dataUser);
-  //})
-  //.catch((err) => console.log(err));
-  //}, []);
+  const handleClickEdit = (e) => {
+    setIsProfileEdit(true);
+  };
 
   // РЕДАКТИРОВАНИЕ ПРОФИЛЯ
   const handleUpdateProfile = (name, email) => {
@@ -256,9 +264,71 @@ function App() {
       });
   };
 
-  const handleClickEdit = (e) => {
-    setIsProfileEdit(true);
+  // СОХРАНЕНИЕ ИЛИ УДАЛЕНИЕ КАРТОЧКИ
+  const handleCardLikeToggle = (card) => {
+    //setSelectedCard(card);
+    //console.log(selectedCard);
+    //console.log(card);
+
+    // есть ли в массиве с сохраненными фильмами id фильма, что лайкаем
+    const isLiked = savedCards.some((item) => {
+      return item.movieId === card.movieId;
+    });
+
+    if (!isLiked) {
+      // Отправляем запрос на СОХРАНЕНИЕ
+      return mainApi
+        .createMovie(card)
+        .then((newMovie) => {
+          setSavedCards([newMovie, ...savedCards]);
+        })
+        .catch((err) => {
+          console.log(`При сохранении фильма: ${err.message}`);
+          setMessageErrorForm(err.message);
+        });
+    } else {
+      // Отправляем запрос на УДАЛЕНИЕ
+      console.log(card);
+      return mainApi
+        .deleteMovie(card._id)
+        .then(() => {
+          setSavedCards(savedCards.filter((item) => {
+            return item._id !== card._id;
+          }));
+        })
+        .catch((err) => {
+          console.log(`При удалении фильма: ${err.message}`);
+          setMessageErrorForm(err.message);
+        });
+    }
   };
+
+  // данные текущего пользователя
+  useEffect(() => {
+    mainApi
+    .getUserActive()
+    .then((dataUser) => {
+    console.log(dataUser);
+    setCurrentUser(dataUser);
+    })
+    .catch((err) => {
+      console.log(`При авторизации: ${err.message}`);
+    });
+  }, [loggedIn]);
+
+  // Запрос за сохраненными фильмами при авторизации
+  useEffect(() => {
+    if (loggedIn) {
+        mainApi
+        .getMyMovies()
+        .then((dataCards) => {
+          setSavedCards(dataCards);
+        })
+        .catch((err) => {
+          console.log(`При загрузке сохраненных фильмов: ${err.message}`);
+        });
+    }
+  }, [loggedIn]);
 
   // попап меню
   useEffect(() => {
@@ -302,21 +372,25 @@ function App() {
                 loggedIn={loggedIn}
                 onClickMenu={handleMenuClick}
                 isLogged={loggedIn}
+                onLikeCard={handleCardLikeToggle}
+                savedCards={savedCards}
               />
             }
           />
           <Route
-            path="/saved-movies"
+            path="/saved-movies/*"
             element={
               <ProtectedRoute
                 element={SavedMovies}
                 loggedIn={loggedIn}
                 onClickMenu={handleMenuClick}
+                savedCards={savedCards}
+                onLikeCard={handleCardLikeToggle}
               />
             }
           />
           <Route
-            path="/profile"
+            path="/profile/*"
             element={
               <ProtectedRoute
                 element={Profile}
@@ -332,7 +406,7 @@ function App() {
             }
           />
           <Route
-            path="/signin"
+            path="/signin/*"
             element={
               <Login
                 onLogin={handleLogin}
@@ -343,7 +417,7 @@ function App() {
             }
           />
           <Route
-            path="/signup"
+            path="/signup/*"
             element={
               <Register
                 onRegister={handleRegister}
