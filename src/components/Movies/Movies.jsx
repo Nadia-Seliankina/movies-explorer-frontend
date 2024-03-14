@@ -221,7 +221,7 @@ export default function Movies({ onClickMenu, isLogged, onLikeCard, savedCards }
           onChangeInput={handleInputChange}
           valueInput={searchQuery}
           onSubmit={handleSearchFormSubmit}
-          onChecked={isChecked}
+          isChecked={isChecked}
           handleChangeCheckbox={handleChangeCheckbox}
         />
         {isSearchEmpty || isLoading ? (

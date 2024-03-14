@@ -9,86 +9,66 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 export default function SavedMovies({ onClickMenu, loggedIn, savedCards, onLikeCard }) {
   // значение инпута поиска
-  //const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   // карточки после сабмита поиска
-  //const foundCardsInStorage = localStorage.getItem("foundCards")
-    //? JSON.parse(localStorage.getItem("foundCards"))
-    //: [];
-  //const [foundCards, setFoundCards] = useState([]);
+  const [foundCards, setFoundCards] = useState([]);
   // фильтр короткометражек
-  //const [shortCards, setShortCards] = useState([]);
-  // количество отображаемых карточек
-  //const [visibleCards, setVisibleCards] = useState(0);
-  // preloader статуса загрузки карточек
-  //const [isLoading, setIsLoading] = useState(false);
-  // инпут поиска
-  //const [isSearchEmpty, setIsSearchEmpty] = useState(true);
+  const [shortCards, setShortCards] = useState([]);
   // отправка формы
-  //const [isSubmited, setIsSubmited] = useState(false);
+  const [isSubmited, setIsSubmited] = useState(false);
   // значение чекбокса
-  //const isCheckedInStorage = localStorage.getItem("isChecked")
-    //? JSON.parse(localStorage.getItem("isChecked"))
-    //: false;
-  //const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
   // сообщение об ошибке после сабмита
   //const [messageErrorForm, setMessageErrorForm] = useState("");
   // сообщение об отсутствии результатов поиска
   //const [isNofingFind, setIsNofingFind] = useState("");
+  // инпут поиска
+  //const [isSearchEmpty, setIsSearchEmpty] = useState(true);
 
-  //function handleInputChange(e) {
-    //setSearchQuery(e.target.value); // текущее значение инпута
-    //if (e.target.value === "") {
-      //setIsSearchEmpty(true);
-    //}
+  function handleInputChange(e) {
+    setSearchQuery(e.target.value); // текущее значение инпута
+    setIsSubmited(false);
     //setIsNofingFind("");
-    //setVisibleCards(0);
-  //}
+    //if (e.target.value === "") {
+        //setIsSearchEmpty(true);
+    //}
+  }
 
-  //function handleChangeCheckbox(e) {
-    //setIsChecked(e.target.checked);
-  //}
+  function handleChangeCheckbox(e) {
+    setIsChecked(e.target.checked);
+  }
 
-  // Запросы к серверу
-  //function handleRequestSearch() {
-    //setIsLoading(true);
-    //moviesApi
-      //.getAllMovies()
-      //.then((res) => {
-        //if (res) {
-          //setinItialCards(mapCards(res));
-        //}
-      //})
-      //.catch((err) => {
-        //console.log(`При поиске фильмов: ${err.message}`);
-        //setMessageErrorForm(
-          //"Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз."
-        //);
-      //})
-      //.finally(() => {
-        //setIsLoading(false);
-      //});
-    //setFoundCards(
-      //initialCards.filter((item) => {
-        //return (item.nameRU || item.nameEN)
-          //.toLowerCase()
-          //.includes(searchQuery.toLowerCase());
+  // Поиск по массиву сохраненых карточек
+  function handleRequestSearch() {
+    setFoundCards(
+        savedCards.filter((item) => {
+        return (item.nameRU || item.nameEN)
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase());
+      })
+    );
+    if (isChecked) {
+      setShortCards(
+        foundCards.filter((item) => {
+          return item.duration <= 40;
+        })
+      );
+    }
+  }
+
+  //function handleCheckSearch() {
+    //setShortCards(
+        //savedCards.filter((item) => {
+            //return item.duration <= 40;
       //})
     //);
-    //if (isChecked) {
-      //setShortCards(
-        //foundCards.filter((item) => {
-          //return item.duration <= 40;
-        //})
-      //);
-    //}
-    //setIsSubmited(false);
   //}
 
-  //function handleSearchFormSubmit(e) {
-    //e.preventDefault();
-    //setIsSubmited(true);
+  function handleSearchFormSubmit(e) {
+    e.preventDefault();
+    setIsSubmited(true);
     //setIsSearchEmpty(false);
-  //}
+  }
 
   //useEffect(() => {
     //if (foundCards.length === 0) {
@@ -99,15 +79,21 @@ export default function SavedMovies({ onClickMenu, loggedIn, savedCards, onLikeC
   //}, [foundCards]);
 
   // после каждого сабмита
-  //useEffect(() => {
-    //handleRequestSearch();
-  //}, [isSubmited]);
+  useEffect(() => {
+    handleRequestSearch();
+  }, [isSubmited]);
+
+  useEffect(() => {
+    if (isChecked) {
+        handleRequestSearch();
+    }
+  }, [isChecked]);
 
   //useEffect(() => {
     //if (isChecked) {
-      //handleRequestSearch();
+        //handleCheckSearch();
     //}
-  //}, [isChecked]);
+  //}, [isSearchEmpty]);
 
   return (
     <>
@@ -118,27 +104,62 @@ export default function SavedMovies({ onClickMenu, loggedIn, savedCards, onLikeC
       ></Header>
       <main className="savedMovies">
         <SearchForm
-          //onChangeInput={handleInputChange}
-          //valueInput={searchQuery}
-          //onSubmit={handleSearchFormSubmit}
-          //onChecked={isChecked}
-          //handleChangeCheckbox={handleChangeCheckbox}
+          onChangeInput={handleInputChange}
+          valueInput={searchQuery}
+          onSubmit={handleSearchFormSubmit}
+          isChecked={isChecked}
+          handleChangeCheckbox={handleChangeCheckbox}
         />
         <>
-          {/*{!isChecked && (*/}
+          {!isSubmited && !isChecked && <MoviesCardList
+              isPathSaved={true}
+              cards={savedCards}
+              onLikeCard={onLikeCard}
+              savedCards={savedCards}
+            />}
+           {isSubmited && !isChecked && <MoviesCardList
+              isPathSaved={true}
+              cards={foundCards}
+              onLikeCard={onLikeCard}
+              savedCards={savedCards}
+            />}
+            {isSubmited && isChecked && <MoviesCardList
+              isPathSaved={true}
+              cards={shortCards}
+              onLikeCard={onLikeCard}
+              savedCards={savedCards}
+            />}
+            {!isSubmited && isChecked && <MoviesCardList
+              isPathSaved={true}
+              cards={shortCards}
+              onLikeCard={onLikeCard}
+              savedCards={savedCards}
+            />}
+
+          {/*{!isChecked && (
             <MoviesCardList
               isPathSaved={true}
               cards={savedCards}
               onLikeCard={onLikeCard}
               savedCards={savedCards}
             />
-          {/*)}*/}
-          {/*isChecked && (
+          )}
+          {isSubmited && (
+          <MoviesCardList
+              isPathSaved={true}
+              cards={foundCards}
+              onLikeCard={onLikeCard}
+              savedCards={savedCards}
+            />
+          )}
+          {isChecked && (
             <MoviesCardList
               isPathSaved={true}
               cards={shortCards}
+              onLikeCard={onLikeCard}
+              savedCards={savedCards}
             />
-          )*/}
+          )}*/}
           {/*<div className="movies__nofind">{isNofingFind}</div>*/}
           {/*<span className="movies__error">{messageErrorForm}</span>*/}
         </>

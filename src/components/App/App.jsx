@@ -40,8 +40,6 @@ function App() {
 
   // сохраненные карточки
   const [savedCards, setSavedCards] = useState([]);
-  // выбранная карточка с фильмом
-  //const [selectedCard, setSelectedCard] = useState(null);
 
   const navigate = useNavigate();
 
@@ -266,9 +264,6 @@ function App() {
 
   // СОХРАНЕНИЕ ИЛИ УДАЛЕНИЕ КАРТОЧКИ
   const handleCardLikeToggle = (card) => {
-    //setSelectedCard(card);
-    //console.log(selectedCard);
-    //console.log(card);
 
     // есть ли в массиве с сохраненными фильмами id фильма, что лайкаем
     const isLiked = savedCards.some((item) => {
@@ -288,7 +283,6 @@ function App() {
         });
     } else {
       // Отправляем запрос на УДАЛЕНИЕ
-      console.log(card);
       return mainApi
         .deleteMovie(card._id)
         .then(() => {
@@ -361,7 +355,7 @@ function App() {
       <div className="app">
         <Routes>
           <Route
-            path="/"
+            path="/*"
             element={<Main onClickMenu={handleMenuClick} isLogged={loggedIn} />}
           />
           <Route
