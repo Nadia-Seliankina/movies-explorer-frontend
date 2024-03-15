@@ -11,9 +11,9 @@ export default function SearchForm({
   onSubmit,
   isChecked,
   handleChangeCheckbox,
-  isDisabledBtn,
-  //messageErrorForm
+  isDisabledBtn
 }) {
+
   return (
     <form id="formMovie" className="searchForm" onSubmit={onSubmit}>
       <div className="searchForm__container">

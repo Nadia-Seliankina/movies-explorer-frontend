@@ -365,7 +365,6 @@ function App() {
                 element={Movies}
                 loggedIn={loggedIn}
                 onClickMenu={handleMenuClick}
-                isLogged={loggedIn}
                 onLikeCard={handleCardLikeToggle}
                 savedCards={savedCards}
               />

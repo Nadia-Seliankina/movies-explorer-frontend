@@ -5,9 +5,13 @@ import SearchForm from "../SearchForm/SearchForm";
 import Footer from "../Footer/Footer";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import { useEffect, useState } from "react";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-export default function SavedMovies({ onClickMenu, loggedIn, savedCards, onLikeCard }) {
+export default function SavedMovies({
+  onClickMenu,
+  loggedIn,
+  savedCards,
+  onLikeCard,
+}) {
   // значение инпута поиска
   const [searchQuery, setSearchQuery] = useState("");
   // карточки после сабмита поиска
@@ -18,20 +22,10 @@ export default function SavedMovies({ onClickMenu, loggedIn, savedCards, onLikeC
   const [isSubmited, setIsSubmited] = useState(false);
   // значение чекбокса
   const [isChecked, setIsChecked] = useState(false);
-  // сообщение об ошибке после сабмита
-  //const [messageErrorForm, setMessageErrorForm] = useState("");
-  // сообщение об отсутствии результатов поиска
-  //const [isNofingFind, setIsNofingFind] = useState("");
-  // инпут поиска
-  //const [isSearchEmpty, setIsSearchEmpty] = useState(true);
 
   function handleInputChange(e) {
     setSearchQuery(e.target.value); // текущее значение инпута
     setIsSubmited(false);
-    //setIsNofingFind("");
-    //if (e.target.value === "") {
-        //setIsSearchEmpty(true);
-    //}
   }
 
   function handleChangeCheckbox(e) {
@@ -41,7 +35,7 @@ export default function SavedMovies({ onClickMenu, loggedIn, savedCards, onLikeC
   // Поиск по массиву сохраненых карточек
   function handleRequestSearch() {
     setFoundCards(
-        savedCards.filter((item) => {
+      savedCards.filter((item) => {
         return (item.nameRU || item.nameEN)
           .toLowerCase()
           .includes(searchQuery.toLowerCase());
@@ -56,27 +50,10 @@ export default function SavedMovies({ onClickMenu, loggedIn, savedCards, onLikeC
     }
   }
 
-  //function handleCheckSearch() {
-    //setShortCards(
-        //savedCards.filter((item) => {
-            //return item.duration <= 40;
-      //})
-    //);
-  //}
-
   function handleSearchFormSubmit(e) {
     e.preventDefault();
     setIsSubmited(true);
-    //setIsSearchEmpty(false);
   }
-
-  //useEffect(() => {
-    //if (foundCards.length === 0) {
-      //setIsNofingFind("Ничего не найдено");
-      //setIsBtnMoreVisible(false);
-    //}
-    //console.log(foundCards.length);
-  //}, [foundCards]);
 
   // после каждого сабмита
   useEffect(() => {
@@ -85,15 +62,9 @@ export default function SavedMovies({ onClickMenu, loggedIn, savedCards, onLikeC
 
   useEffect(() => {
     if (isChecked) {
-        handleRequestSearch();
+      handleRequestSearch();
     }
   }, [isChecked]);
-
-  //useEffect(() => {
-    //if (isChecked) {
-        //handleCheckSearch();
-    //}
-  //}, [isSearchEmpty]);
 
   return (
     <>
@@ -111,32 +82,7 @@ export default function SavedMovies({ onClickMenu, loggedIn, savedCards, onLikeC
           handleChangeCheckbox={handleChangeCheckbox}
         />
         <>
-          {!isSubmited && !isChecked && <MoviesCardList
-              isPathSaved={true}
-              cards={savedCards}
-              onLikeCard={onLikeCard}
-              savedCards={savedCards}
-            />}
-           {isSubmited && !isChecked && <MoviesCardList
-              isPathSaved={true}
-              cards={foundCards}
-              onLikeCard={onLikeCard}
-              savedCards={savedCards}
-            />}
-            {isSubmited && isChecked && <MoviesCardList
-              isPathSaved={true}
-              cards={shortCards}
-              onLikeCard={onLikeCard}
-              savedCards={savedCards}
-            />}
-            {!isSubmited && isChecked && <MoviesCardList
-              isPathSaved={true}
-              cards={shortCards}
-              onLikeCard={onLikeCard}
-              savedCards={savedCards}
-            />}
-
-          {/*{!isChecked && (
+          {!isSubmited && !isChecked && (
             <MoviesCardList
               isPathSaved={true}
               cards={savedCards}
@@ -144,24 +90,30 @@ export default function SavedMovies({ onClickMenu, loggedIn, savedCards, onLikeC
               savedCards={savedCards}
             />
           )}
-          {isSubmited && (
-          <MoviesCardList
+          {isSubmited && !isChecked && (
+            <MoviesCardList
               isPathSaved={true}
               cards={foundCards}
               onLikeCard={onLikeCard}
               savedCards={savedCards}
             />
           )}
-          {isChecked && (
+          {isSubmited && isChecked && (
             <MoviesCardList
               isPathSaved={true}
               cards={shortCards}
               onLikeCard={onLikeCard}
               savedCards={savedCards}
             />
-          )}*/}
-          {/*<div className="movies__nofind">{isNofingFind}</div>*/}
-          {/*<span className="movies__error">{messageErrorForm}</span>*/}
+          )}
+          {!isSubmited && isChecked && (
+            <MoviesCardList
+              isPathSaved={true}
+              cards={shortCards}
+              onLikeCard={onLikeCard}
+              savedCards={savedCards}
+            />
+          )}
         </>
       </main>
       <Footer />
