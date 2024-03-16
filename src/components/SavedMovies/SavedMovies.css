@@ -6,3 +6,12 @@
     flex-direction: column;
     align-items: center;
 }
+
+.savedMovies__nofind {
+    margin: 0;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 1.67;
+    letter-spacing: -0.04em;
+    color: #000000;
+}

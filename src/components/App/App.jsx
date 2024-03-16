@@ -93,14 +93,12 @@ function App() {
         if (token) {
           localStorage.setItem("loggedIn", true);
           setLoggedIn(true);
-          console.log("token ok");
           const userData = {
             name: res.name,
             email: res.email,
           };
           //setCurrentUser({ name, email });
           setCurrentUser(userData);
-          console.log(currentUser);
         }
       })
       .catch((err) => {
@@ -126,7 +124,6 @@ function App() {
       email: res.email,
     };
     setCurrentUser(userData);
-    console.log(currentUser);
   };
 
   // РЕГИСТРАЦИЯ
@@ -149,7 +146,6 @@ function App() {
     return AuthApi.register(name, email, password)
       .then((res) => {
         if (res) {
-          console.log("handleRegister");
           doAuthenticate(res);
           navigate("/movies", { replace: true });
         }
@@ -189,7 +185,6 @@ function App() {
       .then((res) => {
         //if (!res) throw new Error("Неправильное имя пользователя или пароль");
         if (res.token) {
-          console.log("handleLogin");
           doAuthenticate(res);
           navigate("/movies", { replace: true });
           //setUserEmail(email);
@@ -217,10 +212,8 @@ function App() {
   //}, []);
 
   const handleLogout = () => {
-    console.log("handleLogout");
     setLoggedIn(false);
     localStorage.setItem("loggedIn", false);
-    localStorage.removeItem("token");
     setCurrentUser({});
     navigate("/", { replace: true });
     localStorage.clear();
@@ -237,13 +230,11 @@ function App() {
       .then((res) => {
         //if (!res) throw new Error("Неправильное имя пользователя или пароль");
         if (res) {
-          console.log("handleProfile");
           const userData = {
             name: res.name,
             email: res.email,
           };
           setCurrentUser(userData);
-          console.log(currentUser);
           setMessageErrorForm("Ваши данные успешно обновлены.");
           function handleEndEdit() {
             setIsProfileEdit(false);
@@ -302,7 +293,6 @@ function App() {
     mainApi
     .getUserActive()
     .then((dataUser) => {
-    console.log(dataUser);
     setCurrentUser(dataUser);
     })
     .catch((err) => {
@@ -355,7 +345,7 @@ function App() {
       <div className="app">
         <Routes>
           <Route
-            path="/*"
+            path="/"
             element={<Main onClickMenu={handleMenuClick} isLogged={loggedIn} />}
           />
           <Route
@@ -371,7 +361,7 @@ function App() {
             }
           />
           <Route
-            path="/saved-movies/*"
+            path="/saved-movies/"
             element={
               <ProtectedRoute
                 element={SavedMovies}
@@ -383,7 +373,7 @@ function App() {
             }
           />
           <Route
-            path="/profile/*"
+            path="/profile/"
             element={
               <ProtectedRoute
                 element={Profile}
@@ -399,7 +389,7 @@ function App() {
             }
           />
           <Route
-            path="/signin/*"
+            path="/signin/"
             element={
               <Login
                 onLogin={handleLogin}
@@ -410,7 +400,7 @@ function App() {
             }
           />
           <Route
-            path="/signup/*"
+            path="/signup/"
             element={
               <Register
                 onRegister={handleRegister}

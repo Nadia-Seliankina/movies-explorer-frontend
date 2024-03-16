@@ -20,6 +20,8 @@ export default function Profile({
   const currentUser = useContext(CurrentUserContext);
 
   const [isDataEdited, setIsDataEdited] = useState(false);
+  const [isNameEdited, setIsNameEdited] = useState(false);
+  const [isEmailEdited, setIsEmailEdited] = useState(false);
 
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation();
@@ -36,15 +38,32 @@ export default function Profile({
     });
   };
 
-  //useEffect(() => {
-    //if(values.nameProfile !== currentUser.name || values.emailProfile !== currentUser.email) {
-        //setIsDataEdited(true);
-        //console.log(values.nameProfile !== currentUser.name);
-        //console.log(values.emailProfile !== currentUser.email);
-        //console.log(values.nameProfile);
-        //console.log(currentUser.name);
-    //}
-  //}, [values.nameProfile, values.emailProfile, currentUser.name, currentUser.email]);
+  useEffect(() => {
+    if(values.nameProfile !== currentUser.name && values.nameProfile !== undefined) {
+      setIsNameEdited(true);
+    }
+    if(values.nameProfile === currentUser.name) {
+      setIsNameEdited(false);
+    }
+  }, [values.nameProfile]);
+
+  useEffect(() => {
+    if(values.emailProfile !== currentUser.email && values.emailProfile !== undefined) {
+      setIsEmailEdited(true);
+    }
+    if(values.emailProfile === currentUser.email) {
+      setIsEmailEdited(false);
+    }
+  }, [values.emailProfile]);
+
+
+  useEffect(() => {
+    if(isEmailEdited || isNameEdited) {
+      setIsDataEdited(true);
+    } else {
+      setIsDataEdited(false);
+    }
+  }, [isNameEdited, isEmailEdited]);
 
   // для сброса значения формы
   useEffect(() => {

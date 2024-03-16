@@ -11,7 +11,8 @@ export default function SearchForm({
   onSubmit,
   isChecked,
   handleChangeCheckbox,
-  isDisabledBtn
+  isDisabledBtn,
+  errorMessage
 }) {
 
   return (
@@ -26,7 +27,7 @@ export default function SearchForm({
           handleChangeCheckbox={handleChangeCheckbox}
         />
       </div>
-      <span className="searchForm__error" id="moviesInput-error"></span>
+      <span className="searchForm__error" id="moviesInput-error">{errorMessage}</span>
       <div className="searchForm__line"></div>
     </form>
   );

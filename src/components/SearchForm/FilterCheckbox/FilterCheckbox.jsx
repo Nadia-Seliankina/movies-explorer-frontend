@@ -1,5 +1,4 @@
 // фильтр с чекбоксом «Только короткометражки»
-//import { useState } from "react";
 import "./FilterCheckbox.css";
 
 export default function FilterCheckbox({ isChecked, handleChangeCheckbox }) {
@@ -11,7 +10,6 @@ export default function FilterCheckbox({ isChecked, handleChangeCheckbox }) {
         type="checkbox"
         name="choice"
         id="yes"
-        // value="короткие"
         checked={isChecked}
         onChange={handleChangeCheckbox}
       />

@@ -1,41 +1,15 @@
 // компонент страницы авторизации
-import { useState } from "react";
 import FieldsetElement from "../FieldsetElement/FieldsetElement";
 import FormElement from "../FormElement/FormElement";
 import "./Login.css";
-import { RegExEmail } from "../../../utils/RegExEmail";
-import { RegExName } from "../../../utils/RegExName";
-import { RegExPassword } from "../../../utils/RegExPassword";
 import { useNavigate } from "react-router-dom";
 import { useFormWithValidation } from "../../../hooks/useForm";
+import { useEffect } from "react";
 
 export default function Login({ onLogin, isSending, messageErrorForm, loggedIn }) {
 
   const navigate = useNavigate();
-  const {values, handleChange, errors, isValid, resetForm, setIsValid} = useFormWithValidation();
-
-  // Стейт, в котором содержится значение инпута
-  //const [userData, setUserData] = useState({
-    //emailLogin: '',
-    //passwordLogin: '',
-  //});
-  //const [message, setMessage] = useState("");
-
-  //const resetForm = () => {
-    //setUserData({
-      //...userData,
-      //emailLogin: '',
-      //passwordLogin: '',
-    //});
-  //};
-
-  //const handleChange = (evt) => {
-    //const {name, value} = evt.target;
-    //setUserData({
-      //...userData,
-      //[name]: value
-    //});
-  //};
+  const {values, handleChange, errors, isValid, resetForm} = useFormWithValidation();
 
   const handleSubmit = (e) =>{
     e.preventDefault();
@@ -47,13 +21,14 @@ export default function Login({ onLogin, isSending, messageErrorForm, loggedIn }
     onLogin(emailLogin, passwordLogin)
     .then((res) => {
       resetForm({}, {}, true);
-      console.log('onLogin');
     })
   }
 
-  if (!RegExEmail.test(values.emailLogin ) && values.emailLogin){
-    errors.emailLogin = "Введите почту согласно шаблону. Допустимы точки, тире и нижнее подчеркивание.";
-  };
+  useEffect(() => {
+    if (loggedIn) {
+      navigate("/movies", { replace: true });
+    }
+  }, [loggedIn, navigate]);
   
   return (
     <main className="login">
@@ -93,7 +68,6 @@ export default function Login({ onLogin, isSending, messageErrorForm, loggedIn }
           spanMessage={errors.passwordLogin || ""}
           minLength="8"
           formId="formUser"
-          maxLength="16"
           autoComplete="off"
         />
       </FormElement>

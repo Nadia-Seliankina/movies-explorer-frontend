@@ -14,6 +14,9 @@ export default function SavedMovies({
 }) {
   // значение инпута поиска
   const [searchQuery, setSearchQuery] = useState("");
+  // валидация инпута
+  const [errors, setErrors] = useState("");
+  //const [isValid, setIsValid] = useState(false);
   // карточки после сабмита поиска
   const [foundCards, setFoundCards] = useState([]);
   // фильтр короткометражек
@@ -22,10 +25,21 @@ export default function SavedMovies({
   const [isSubmited, setIsSubmited] = useState(false);
   // значение чекбокса
   const [isChecked, setIsChecked] = useState(false);
+  // сообщение об отсутствии результатов поиска
+  const [isNofingFind, setIsNofingFind] = useState("");
 
   function handleInputChange(e) {
     setSearchQuery(e.target.value); // текущее значение инпута
     setIsSubmited(false);
+    setIsNofingFind("");
+    
+    //setIsValid(e.target.closest(".searchForm").checkValidity()); // получаем объект формы, получем статус валидности
+    if (e.target.validity.valueMissing) {
+      e.target.setCustomValidity("Нужно ввести ключевое слово");
+    } else {
+      e.target.setCustomValidity("");
+    }
+    setErrors(e.target.validationMessage);
   }
 
   function handleChangeCheckbox(e) {
@@ -66,6 +80,18 @@ export default function SavedMovies({
     }
   }, [isChecked]);
 
+  useEffect(() => {
+    if (foundCards.length === 0 && !isChecked) {
+      setIsNofingFind("Ничего не найдено");
+    }
+  }, [foundCards, isChecked]);
+
+  useEffect(() => {
+    if (shortCards.length === 0 && isChecked) {
+      setIsNofingFind("Ничего не найдено");
+    }
+  }, [shortCards, isChecked]);
+
   return (
     <>
       <Header
@@ -80,6 +106,8 @@ export default function SavedMovies({
           onSubmit={handleSearchFormSubmit}
           isChecked={isChecked}
           handleChangeCheckbox={handleChangeCheckbox}
+          //isDisabledBtn={!isValid}
+          errorMessage={errors}
         />
         <>
           {!isSubmited && !isChecked && (
@@ -114,6 +142,7 @@ export default function SavedMovies({
               savedCards={savedCards}
             />
           )}
+          {isSubmited && <div className="savedMovies__nofind">{isNofingFind}</div>}
         </>
       </main>
       <Footer />

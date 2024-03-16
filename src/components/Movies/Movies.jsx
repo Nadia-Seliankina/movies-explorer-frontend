@@ -7,6 +7,7 @@ import Footer from "../Footer/Footer";
 import Preloader from "../Preloader/Preloader";
 import { useEffect, useState } from "react";
 import moviesApi from "../../utils/MoviesApi";
+//import { useFormSearchValidation } from "../../hooks/useFormSearch";
 
 const urlBeatfilm = "https://api.nomoreparties.co";
 
@@ -28,11 +29,15 @@ const mapCards = (movies) => {
 };
 
 export default function Movies({ onClickMenu, loggedIn, onLikeCard, savedCards }) {
+
   // значение инпута поиска
   const searchQueryInStorage = localStorage.getItem("searchQuery")
     ? localStorage.getItem("searchQuery")
     : "";
   const [searchQuery, setSearchQuery] = useState(searchQueryInStorage);
+  // валидация инпута
+  const [errors, setErrors] = useState("");
+  //const [isValid, setIsValid] = useState(false);
   // здесь будем хранить карточки, которые получили с сервера
   const [initialCards, setinItialCards] = useState([]);
   // карточки после сабмита поиска
@@ -73,6 +78,15 @@ export default function Movies({ onClickMenu, loggedIn, onLikeCard, savedCards }
     setIsNofingFind("");
     setVisibleCards(0);
     setIsBtnMoreVisible(false);
+
+    //setIsValid(e.target.closest(".searchForm").checkValidity()); // получаем объект формы, получем статус валидности
+    if (e.target.validity.valueMissing) {
+    //if (!e.target.validityy.valid) {
+      e.target.setCustomValidity("Нужно ввести ключевое слово");
+    } else {
+      e.target.setCustomValidity("");
+    }
+    setErrors(e.target.validationMessage);
   }
 
   function handleChangeCheckbox(e) {
@@ -149,8 +163,6 @@ export default function Movies({ onClickMenu, loggedIn, onLikeCard, savedCards }
       setIsNofingFind("Ничего не найдено");
       setIsBtnMoreVisible(false);
     }
-    
-    console.log(foundCards.length);
 
     if (foundCards.length > 16 && window.innerWidth >= 1024 && !isChecked) {
       setIsBtnMoreVisible(true);
@@ -175,7 +187,6 @@ export default function Movies({ onClickMenu, loggedIn, onLikeCard, savedCards }
       setIsNofingFind("Ничего не найдено");
       setIsBtnMoreVisible(false);
     }
-    console.log(shortCards.length);
     if (shortCards.length > 16 && window.innerWidth >= 1024 && isChecked) {
       setIsBtnMoreVisible(true);
     }
@@ -217,8 +228,6 @@ export default function Movies({ onClickMenu, loggedIn, onLikeCard, savedCards }
     }
   }, [shortCards, isChecked]);
 
-  
-
   // после каждого сабмита
   useEffect(() => {
     handleRequestSearch();
@@ -235,7 +244,6 @@ export default function Movies({ onClickMenu, loggedIn, onLikeCard, savedCards }
     if(searchQueryInStorage) {
       setIsSearchEmpty(false);
     }
-
     setFoundCards(foundCardsInStorage);
     setIsNofingFind("");
 
@@ -286,6 +294,8 @@ export default function Movies({ onClickMenu, loggedIn, onLikeCard, savedCards }
           onSubmit={handleSearchFormSubmit}
           isChecked={isChecked}
           handleChangeCheckbox={handleChangeCheckbox}
+          //isDisabledBtn={!isValid}
+          errorMessage={errors}
         />
         {isSearchEmpty || isLoading ? (
           <Preloader />

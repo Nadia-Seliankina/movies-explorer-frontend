@@ -9,7 +9,6 @@ export function useFormWithValidation() {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
   const [isValid, setIsValid] = useState(false);
-  //const [isValid, setIsValid] = useState({});
   
   const handleChange = (event) => {
     const target = event.target; // инпут, у кот. изменилось значение
@@ -17,8 +16,7 @@ export function useFormWithValidation() {
     const value = target.value; // текущее значение
     setValues({ ...values, [name]: value });
     setErrors({ ...errors, [name]: target.validationMessage }); // validationMessage хранит текущую ошибку
-    //setIsValid(target.closest(".formElement").checkValidity()); // получаем объект формы, получем статус валидности
-    //setIsValid({ ...isValid, [name]: target.closest(".formElement").checkValidity() });
+    setIsValid(target.closest(".formElement").checkValidity()); // получаем объект формы, получем статус валидности
 
     if(name === "nameRegister") {
       const isValidName = RegExName.test(value);
@@ -26,7 +24,6 @@ export function useFormWithValidation() {
       setErrors({ ...errors, [name]: isValidName ? target.validationMessage : "Имя может содержать только латиницу, кириллицу, пробел или дефис." });
       if(!isValidName) {
         setIsValid(false);
-        //setIsValid({ ...isValid, [name]: false });
       }
     }
 
@@ -45,7 +42,6 @@ export function useFormWithValidation() {
       setErrors({ ...errors, [name]: isValidEmail ? target.validationMessage : "Введите почту согласно шаблону. Допустимы точки, тире и нижнее подчеркивание." });
       if(!isValidEmail) {
         setIsValid(false);
-        //setIsValid({ ...isValid, [name]: false });
       }
     }
 
@@ -55,18 +51,16 @@ export function useFormWithValidation() {
       setErrors({ ...errors, [name]: isValidEmail ? target.validationMessage : "Введите почту согласно шаблону. Допустимы точки, тире и нижнее подчеркивание." });
       if(!isValidEmail) {
         setIsValid(false);
-        //setIsValid({ ...isValid, [name]: false });
       }
     }
 
     if(name === "passwordRegister" || name === "passwordLogin") {
-      //const isValidPassword = RegExPassword.test(value);
+      const isValidPassword = RegExPassword.test(value);
       setIsValid(target.closest(".formElement").checkValidity());
-      //setErrors({ ...errors, [name]: isValidPassword ? target.validationMessage : "Введите от 8 до 16 символов." });
-      //if(!isValidPassword) {
-        //setIsValid(false);
-        ////setIsValid({ ...isValid, [name]: false });
-      //}
+      setErrors({ ...errors, [name]: isValidPassword ? target.validationMessage : "Введите от 8 до 16 символов." });
+      if(!isValidPassword) {
+        setIsValid(false);
+      }
     }
   };
 

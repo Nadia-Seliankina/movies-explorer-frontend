@@ -2,23 +2,15 @@
 import FormElement from "../FormElement/FormElement";
 import FieldsetElement from "../FieldsetElement/FieldsetElement";
 import "./Register.css";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useFormWithValidation } from "../../../hooks/useForm";
 import { useNavigate } from "react-router-dom";
 
 export default function Register({ onRegister, isSending, messageErrorForm, loggedIn }) {
 
-  //const [isValidForm, setIsValidForm] = useState(false);
-
   const navigate = useNavigate();
 
   const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
-
-  //useEffect(() => {
-    //if(isValid.nameRegister && isValid.emailRegister && isValid.passwordRegister) {
-      //setIsValidForm(true);
-    //}
-  //}, [isValidForm]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,7 +25,6 @@ export default function Register({ onRegister, isSending, messageErrorForm, logg
     let { nameRegister, emailRegister, passwordRegister } = values;
     onRegister(nameRegister, emailRegister, passwordRegister).then((res) => {
       resetForm({}, {}, true);
-      console.log("onRegister");
     });
   };
 
@@ -51,7 +42,6 @@ export default function Register({ onRegister, isSending, messageErrorForm, logg
         isSignup={true}
         onSubmitForm={handleSubmit}
         isDisabled={!isValid || isSending}
-        //isDisabled={isSending || !isValidForm}
         messageErrorForm={messageErrorForm}
       >
         <FieldsetElement
@@ -66,7 +56,7 @@ export default function Register({ onRegister, isSending, messageErrorForm, logg
           spanMessage={errors.nameRegister || ""}
           minLength="2"
           autoComplete="off"
-          //formId="formUser"
+          formId="formUser"
         />
         <FieldsetElement
           label="E-mail"
@@ -81,7 +71,7 @@ export default function Register({ onRegister, isSending, messageErrorForm, logg
           spanMessage={errors.emailRegister || ""}
           minLength="2"
           autoComplete="off"
-          //formId="formUser"
+          formId="formUser"
         />
         <FieldsetElement
           label="Пароль"
@@ -93,10 +83,9 @@ export default function Register({ onRegister, isSending, messageErrorForm, logg
           spanId="passwordRegister-error"
           onChangeInput={handleChange}
           spanMessage={errors.passwordRegister || ""}
-          minLength={8}
-          //maxLength="16"
+          minLength="8"
           autoComplete="off"
-          //formId="formUser"
+          formId="formUser"
         />
       </FormElement>
     </main>

@@ -12,7 +12,7 @@ export default function Input({ value, onChange }) {
       onChange={onChange}
       required
       formid="formMovie"
-      //minLength="2"
+      autoComplete="off"
     ></input>
   );
 }
