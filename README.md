@@ -1,7 +1,10 @@
 **ПО МАКЕТУ light-3**
 https://www.figma.com/file/6FMWkB94wE7KTkcCgUXtnC/%D0%94%D0%B8%D0%BF%D0%BB%D0%BE%D0%BC%D0%BD%D1%8B%D0%B9-%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82?type=design&node-id=1-1900&mode=design&t=nVAk7ZCjIeTIhQu6-0
 
-https://github.com/Nadia-Seliankina/movies-explorer-frontend/tree/level-2
+https://github.com/Nadia-Seliankina/movies-explorer-frontend/tree/level-3
+
+•	Frontend https://movie.seliankina.nomoredomainswork.ru/
+•	Backend https://api.movie.seliankina.nomoredomainswork.ru/
 
 **Технологии**
 * В качестве основы использован макет в Фигме.
@@ -41,3 +44,4 @@ https://github.com/Nadia-Seliankina/movies-explorer-frontend/tree/level-2
 * попап меню закрывается после нажатия на линк желаемой страницы
 * кнопка назад, если не хочешь редактировать профиль
 * внести изменения по комментариям к level-2
+* закомментированый код - будущий рефакторинг

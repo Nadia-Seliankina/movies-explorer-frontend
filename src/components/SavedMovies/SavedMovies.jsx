@@ -84,11 +84,17 @@ export default function SavedMovies({
     if (foundCards.length === 0 && !isChecked) {
       setIsNofingFind("Ничего не найдено");
     }
+    if (foundCards.length > 0) {
+      setIsNofingFind("");
+    }
   }, [foundCards, isChecked]);
 
   useEffect(() => {
     if (shortCards.length === 0 && isChecked) {
       setIsNofingFind("Ничего не найдено");
+    }
+    if (shortCards.length > 0) {
+      setIsNofingFind("");
     }
   }, [shortCards, isChecked]);
 

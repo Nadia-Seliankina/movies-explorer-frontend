@@ -34,7 +34,6 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
 
   // Статус пользователя
-  //const [loggedIn, setLoggedIn] = useState(false);
   const loggedInStorage = JSON.parse(localStorage.getItem("loggedIn"));
   const [loggedIn, setLoggedIn] = useState(loggedInStorage);
 

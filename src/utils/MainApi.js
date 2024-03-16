@@ -79,8 +79,8 @@ class MainApi {
 }
 
 const mainApi = new MainApi({
-  //url: "https://api.movie.seliankina.nomoredomainswork.ru",
-  url: "http://localhost:3001",
+  url: "https://api.movie.seliankina.nomoredomainswork.ru",
+  //url: "http://localhost:3001",
 });
 
 export default mainApi;

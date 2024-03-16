@@ -16,7 +16,6 @@ export function useFormWithValidation() {
     const value = target.value; // текущее значение
     setValues({ ...values, [name]: value });
     setErrors({ ...errors, [name]: target.validationMessage }); // validationMessage хранит текущую ошибку
-    setIsValid(target.closest(".formElement").checkValidity()); // получаем объект формы, получем статус валидности
 
     if(name === "nameRegister") {
       const isValidName = RegExName.test(value);
