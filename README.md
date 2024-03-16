@@ -3,8 +3,10 @@ https://www.figma.com/file/6FMWkB94wE7KTkcCgUXtnC/%D0%94%D0%B8%D0%BF%D0%BB%D0%BE
 
 https://github.com/Nadia-Seliankina/movies-explorer-frontend/tree/level-3
 
-•	Frontend https://movie.seliankina.nomoredomainswork.ru/
-•	Backend https://api.movie.seliankina.nomoredomainswork.ru/
+https://github.com/Nadia-Seliankina/movies-explorer-frontend/pull/6
+
+* Frontend https://movie.seliankina.nomoredomainswork.ru/
+* Backend https://api.movie.seliankina.nomoredomainswork.ru/
 
 **Технологии**
 * В качестве основы использован макет в Фигме.
