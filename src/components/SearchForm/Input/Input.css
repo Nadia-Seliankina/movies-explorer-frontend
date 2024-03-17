@@ -10,6 +10,10 @@
     margin: 0 19px 0 33px;
 }
 
+.input:invalid:not(:focus) {
+    color: #EE3465;
+}
+
 .input:focus {
     outline: none;
     border-bottom: 1px solid #3456F3;

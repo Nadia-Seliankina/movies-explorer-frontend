@@ -87,6 +87,10 @@
     background-color: transparent;
 }
 
+.profile__input:invalid:not(:focus) {
+    color: #EE3465;
+}
+
 .profile__input:focus {
     outline: none;
     border-bottom: 1px solid #3456F3;
@@ -176,6 +180,17 @@
     color: #FF004C;
     position: absolute;
     bottom: 68px;
+}
+
+.profile__input-span {
+    margin: 10px 0 0;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 1.21;
+    text-align: center;
+    color: #FF004C;
+    /*position: absolute;
+    bottom: 68px;*/
 }
 
 .profile__input-error_off {

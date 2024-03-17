@@ -3,7 +3,7 @@ import "./Navigation.css";
 import BtnProfile from "../BtnProfile/BtnProfile";
 import { NavLink, Route, Routes } from "react-router-dom";
 
-export default function Navigation({ isLogged }) {
+export default function Navigation({ isLogged, onClickMenu }) {
   return (
     <Routes>
       <Route
@@ -32,7 +32,7 @@ export default function Navigation({ isLogged }) {
                 </NavLink>
               </nav>
               <BtnProfile isNavigation={true} />
-              <button className="navigation__button">
+              <button className="navigation__button" type="button"  onClick={onClickMenu}>
                 <span className="navigation__button-span"></span>
               </button>
             </nav>
@@ -73,7 +73,7 @@ export default function Navigation({ isLogged }) {
               </NavLink>
             </nav>
             <BtnProfile isNavigation={true} />
-            <button className="navigation__button">
+            <button className="navigation__button" type="button"  onClick={onClickMenu}>
               <span className="navigation__button-span"></span>
             </button>
           </nav>
@@ -104,7 +104,7 @@ export default function Navigation({ isLogged }) {
               </NavLink>
             </nav>
             <BtnProfile isNavigation={true} />
-            <button className="navigation__button">
+            <button className="navigation__button" type="button"  onClick={onClickMenu}>
               <span className="navigation__button-span"></span>
             </button>
           </nav>
@@ -135,7 +135,7 @@ export default function Navigation({ isLogged }) {
               </NavLink>
             </nav>
             <BtnProfile isNavigation={true} />
-            <button className="navigation__button">
+            <button className="navigation__button" type="button"  onClick={onClickMenu}>
               <span className="navigation__button-span"></span>
             </button>
           </nav>

@@ -8,10 +8,15 @@ export default function FieldsetElement({
   value,
   required,
   spanId,
-  placeholder
+  placeholder,
+  onChangeInput,
+  spanMessage,
+  minLength,
+  formId,
+  ...props
 }) {
   return (
-    <div className="fieldsetElement">
+    <fieldset form={formId} className="fieldsetElement">
       <label className="fieldsetElement__label" htmlFor={inputId}>
         {label}
       </label>
@@ -23,11 +28,11 @@ export default function FieldsetElement({
         value={value}
         required={required}
         placeholder={placeholder}
-        minLength="2"
+        onChange={onChangeInput}
+        minLength={minLength}
+        {...props}
       />
-      <span className="fieldsetElement__error" id={spanId}>
-        Что-то пошло не так...
-      </span>
-    </div>
+      <span className="fieldsetElement__error" id={spanId}>{spanMessage}</span>
+    </fieldset>
   );
 }

@@ -18,6 +18,10 @@
     /*mix-blend-mode: multiply;*/
 }
 
+/*.moviesCardList-item:nth-child(n+7) {
+    display: none;
+}*/
+
 @media screen and (max-width: 1024px) {
     .moviesCardList {
         padding: 70px 30px 30px;

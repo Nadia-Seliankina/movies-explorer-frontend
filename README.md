@@ -1,7 +1,10 @@
 **ПО МАКЕТУ light-3**
-https://www.figma.com/file/6FMWkB94wE7KTkcCgUXtnC/%D0%94%D0%B8%D0%BF%D0%BB%D0%BE%D0%BC%D0%BD%D1%8B%D0%B9-%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82?type=design&node-id=1-1900&mode=design&t=nVAk7ZCjIeTIhQu6-0
+* https://www.figma.com/file/6FMWkB94wE7KTkcCgUXtnC/%D0%94%D0%B8%D0%BF%D0%BB%D0%BE%D0%BC%D0%BD%D1%8B%D0%B9-%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82?type=design&node-id=1-1900&mode=design&t=nVAk7ZCjIeTIhQu6-0
 
-https://github.com/Nadia-Seliankina/movies-explorer-frontend/tree/level-2
+* https://github.com/Nadia-Seliankina/movies-explorer-frontend/pull/6
+
+* Frontend https://movie.seliankina.nomoredomainswork.ru/
+* Backend https://api.movie.seliankina.nomoredomainswork.ru/
 
 **Технологии**
 * В качестве основы использован макет в Фигме.
@@ -18,15 +21,27 @@ https://github.com/Nadia-Seliankina/movies-explorer-frontend/tree/level-2
 * Используются стандартные браузерные тексты ошибок.
 * Код организован с помощью парадигмы объектно-ориентированного программирования.
 * Инфраструктурные файлы проекта созданы через CRA.
-* Приложение сделано на React
+* Приложение сделано на React.
+* React-router
+* React Context
 
 **Структура**
-*	для «Реакт-компонентов» директория components/;
-*	для вспомогательных функций, а также для запросов к API — директория utils/;
-*	для изображений — images/;
-*	для кода или файлов сторонних разработчиков, например шрифтов, — vendor/;
+* для «Реакт-компонентов» директория components/;
+* для вспомогательных функций, а также для запросов к API — директория utils/;
+* для изображений — images/;
+* для кода или файлов сторонних разработчиков, например шрифтов, — vendor/;
 
 **Планы**
 * 2 языка
 * светлая/темная тема
+* больше языков
 * поменять Виталия
+* показать/спрятать пароль при вводе
+* попап подверждения удаления карточки
+* попап с описанием фильма
+* JWT-токен хранить в куке
+* попапы после сабмита форм
+* попап меню закрывается после нажатия на линк желаемой страницы
+* кнопка назад, если не хочешь редактировать профиль
+* внести изменения по комментариям к level-2
+* закомментированый код - будущий рефакторинг

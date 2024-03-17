@@ -1,7 +1,8 @@
 // фильтр с чекбоксом «Только короткометражки»
 import "./FilterCheckbox.css";
 
-export default function FilterCheckbox() {
+export default function FilterCheckbox({ isChecked, handleChangeCheckbox }) {
+
   return (
     <label className="filterCheckbox" htmlFor="yes">
       <input
@@ -9,7 +10,8 @@ export default function FilterCheckbox() {
         type="checkbox"
         name="choice"
         id="yes"
-        value="короткие"
+        checked={isChecked}
+        onChange={handleChangeCheckbox}
       />
       <span className="filterCheckbox-visible">
         Короткометражки

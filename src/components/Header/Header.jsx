@@ -6,14 +6,14 @@ import "./Header.css";
 import Navigatiion from "../Navigation/Navigation";
 import Logo from "../Logo/Logo";
 
-export default function Header({ isLight }) {
+export default function Header({ isLight, onClickMenu, isLogged }) {
   // Исользуем JavaScript-шаблон для склейки значения атрибута
   const classNameHeader = `header ${isLight ? "header_light" : ""}`;
 
   return (
     <header className={classNameHeader}>
       <Logo></Logo>
-      <Navigatiion isLogged={true}></Navigatiion>
+      <Navigatiion isLogged={isLogged} onClickMenu={onClickMenu}></Navigatiion>
     </header>
   );
 }

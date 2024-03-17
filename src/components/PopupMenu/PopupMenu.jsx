@@ -3,14 +3,14 @@ import "./PopupMenu.css";
 import { NavLink } from "react-router-dom";
 
 
-export default function PopupMenu({ isOpen }) {
+export default function PopupMenu({ isOpen, onClose, onMouseDown }) {
   // Исользуем JavaScript-шаблон для склейки значения атрибута
   const classNamePopup = `popupMenu ${isOpen ? "popupMenu_opened" : ""}`;
 
   return (
-    <section className={classNamePopup}>
+    <section className={classNamePopup} onMouseDown={onMouseDown}>
       <nav className="popupMenu__container">
-        <button className="popupMenu__btn-close"></button>
+        <button className="popupMenu__btn-close" type="button" onClick={onClose}></button>
         <NavLink
           to="/"
           className={({ isActive }) =>

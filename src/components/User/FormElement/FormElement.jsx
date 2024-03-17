@@ -1,28 +1,20 @@
 import "./FormElement.css";
 import Logo from "../../Logo/Logo";
 import { NavLink } from "react-router-dom";
+import { useEffect } from "react";
 
-export default function FormElement({ children, greeting, button, isSignup }) {
+export default function FormElement({ children, greeting, button, isSignup, onSubmitForm, isDisabled, messageErrorForm="" }) {
+  const classNameBtnSubmit = `formElement__btn-submit ${isDisabled ? "formElement__btn-submit_inactive" : ""}`;
+
   return (
-    <form className="formElement">
+    <form id="formUser" className="formElement" onSubmit={onSubmitForm}>
       <div className="formElement__top">
         <Logo />
         <p className="formElement__greeting">{greeting}</p>
       </div>
-      <fieldset className="formElement__fieldset">{children}</fieldset>
-      <button className="formElement__btn-submit">{button}</button>
-      {/*<Routes>
-                <Route path="/signup" element={
-                    <NavLink to="/signin/*">
-                        Уже зарегистрированы? <span>Войти</span>
-                    </NavLink>
-                } />
-                <Route path="/signin" element={
-                    <NavLink to="/signup/*">
-                    Ещё не зарегистрированы? <span>Регистрация</span>
-                </NavLink>
-                } />
-            </Routes>*/}
+      <div className="formElement__fieldset">{children}</div>
+      <span className="formElement__error">{messageErrorForm}</span>
+      <button className={classNameBtnSubmit} type="submit" disabled={isDisabled} >{button}</button>
       {isSignup ? (
         <NavLink className="formElement__link" to="/signin">
           Уже зарегистрированы? <span className="formElement__link-span">Войти</span>
