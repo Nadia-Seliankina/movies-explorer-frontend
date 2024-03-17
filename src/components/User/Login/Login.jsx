@@ -38,7 +38,7 @@ export default function Login({ onLogin, isSending, messageErrorForm, loggedIn }
         isSignup={false}
         onSubmitForm={handleSubmit}
         isDisabled={!isValid || isSending}
-        messageErrorForm={messageErrorForm}
+        messageErrorForm={messageErrorForm || ""}
       >
         <FieldsetElement
           label="E-mail"

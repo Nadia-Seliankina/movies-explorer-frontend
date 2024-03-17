@@ -28,14 +28,14 @@ export default function Profile({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!values.nameProfile || !values.emailProfile) {
-      return;
-    }
+    //if (!values.nameProfile || !values.emailProfile) {
+      //return;
+    //}
     //onProfile({ nameRegister, emailRegister, passwordRegister });
     let { nameProfile, emailProfile } = values;
     onProfile(nameProfile, emailProfile).then((res) => {
-      console.log("onProfile");
     });
+    setIsDataEdited(false);
   };
 
   useEffect(() => {

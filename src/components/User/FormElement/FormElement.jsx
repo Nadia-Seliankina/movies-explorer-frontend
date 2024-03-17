@@ -1,8 +1,9 @@
 import "./FormElement.css";
 import Logo from "../../Logo/Logo";
 import { NavLink } from "react-router-dom";
+import { useEffect } from "react";
 
-export default function FormElement({ children, greeting, button, isSignup, onSubmitForm, isDisabled, messageErrorForm }) {
+export default function FormElement({ children, greeting, button, isSignup, onSubmitForm, isDisabled, messageErrorForm="" }) {
   const classNameBtnSubmit = `formElement__btn-submit ${isDisabled ? "formElement__btn-submit_inactive" : ""}`;
 
   return (

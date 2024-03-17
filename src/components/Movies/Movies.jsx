@@ -7,7 +7,7 @@ import Footer from "../Footer/Footer";
 import Preloader from "../Preloader/Preloader";
 import { useEffect, useState } from "react";
 import moviesApi from "../../utils/MoviesApi";
-//import { useFormSearchValidation } from "../../hooks/useFormSearch";
+import { RegExSearch } from "../../utils/RegExSearch";
 
 const urlBeatfilm = "https://api.nomoreparties.co";
 
@@ -37,9 +37,12 @@ export default function Movies({ onClickMenu, loggedIn, onLikeCard, savedCards }
   const [searchQuery, setSearchQuery] = useState(searchQueryInStorage);
   // валидация инпута
   const [errors, setErrors] = useState("");
-  //const [isValid, setIsValid] = useState(false);
+  const [isValid, setIsValid] = useState(false);
   // здесь будем хранить карточки, которые получили с сервера
-  const [initialCards, setinItialCards] = useState([]);
+  const initialCardsInStorage = sessionStorage.getItem("initialCards")
+    ? JSON.parse(sessionStorage.getItem("initialCards"))
+    : [];
+  const [initialCards, setinItialCards] = useState(initialCardsInStorage);
   // карточки после сабмита поиска
   const foundCardsInStorage = localStorage.getItem("foundCards")
     ? JSON.parse(localStorage.getItem("foundCards"))
@@ -78,15 +81,6 @@ export default function Movies({ onClickMenu, loggedIn, onLikeCard, savedCards }
     setIsNofingFind("");
     setVisibleCards(0);
     setIsBtnMoreVisible(false);
-
-    //setIsValid(e.target.closest(".searchForm").checkValidity()); // получаем объект формы, получем статус валидности
-    if (e.target.validity.valueMissing) {
-    //if (!e.target.validityy.valid) {
-      e.target.setCustomValidity("Нужно ввести ключевое слово");
-    } else {
-      e.target.setCustomValidity("");
-    }
-    setErrors(e.target.validationMessage);
   }
 
   function handleChangeCheckbox(e) {
@@ -95,7 +89,7 @@ export default function Movies({ onClickMenu, loggedIn, onLikeCard, savedCards }
   }
 
   // Запросы к серверу
-  function handleRequestSearch() {
+  function getAllCards() {
     setIsLoading(true);
     moviesApi
       .getAllMovies()
@@ -113,6 +107,17 @@ export default function Movies({ onClickMenu, loggedIn, onLikeCard, savedCards }
       .finally(() => {
         setIsLoading(false);
       });
+  }
+
+  // Поисковая фильтрация
+  function handleRequestSearch() {
+
+    if (initialCards.length === 0) {
+      getAllCards();
+    }
+    if (initialCardsInStorage.length === 0) {
+      sessionStorage.setItem("initialCards", JSON.stringify(initialCards));
+    }
 
     setFoundCards(
       initialCards.filter((item) => {
@@ -139,11 +144,15 @@ export default function Movies({ onClickMenu, loggedIn, onLikeCard, savedCards }
     setIsSubmited(true);
     setIsSearchEmpty(false);
 
-    if (window.innerWidth >= 1024) {
+    if (window.innerWidth >= 1140) {
       setVisibleCards((prevValue) => prevValue + 16);
       localStorage.setItem("visibleCards", 16);
     }
-    if (544 < window.innerWidth && window.innerWidth < 1024) {
+    if (1025 <= window.innerWidth && window.innerWidth <= 1139) {
+      setVisibleCards((prevValue) => prevValue + 12);
+      localStorage.setItem("visibleCards", 12);
+    }
+    if (544 < window.innerWidth && window.innerWidth <= 1024) {
       setVisibleCards((prevValue) => prevValue + 8);
       localStorage.setItem("visibleCards", 8);
     }
@@ -164,13 +173,20 @@ export default function Movies({ onClickMenu, loggedIn, onLikeCard, savedCards }
       setIsBtnMoreVisible(false);
     }
 
-    if (foundCards.length > 16 && window.innerWidth >= 1024 && !isChecked) {
+    if (foundCards.length > 16 && window.innerWidth >= 1140 && !isChecked) {
+      setIsBtnMoreVisible(true);
+    }
+    if (
+      foundCards.length > 12 &&
+      1025 <= window.innerWidth &&
+      window.innerWidth <= 1139 && !isChecked
+    ) {
       setIsBtnMoreVisible(true);
     }
     if (
       foundCards.length > 8 &&
       544 < window.innerWidth &&
-      window.innerWidth < 1024 && !isChecked
+      window.innerWidth <= 1024 && !isChecked
     ) {
       setIsBtnMoreVisible(true);
     }
@@ -187,13 +203,20 @@ export default function Movies({ onClickMenu, loggedIn, onLikeCard, savedCards }
       setIsNofingFind("Ничего не найдено");
       setIsBtnMoreVisible(false);
     }
-    if (shortCards.length > 16 && window.innerWidth >= 1024 && isChecked) {
+    if (shortCards.length > 16 && window.innerWidth >= 1140 && isChecked) {
+      setIsBtnMoreVisible(true);
+    }
+    if (
+      shortCards.length > 12 &&
+      1025 <= window.innerWidth &&
+      window.innerWidth <= 1139
+    ) {
       setIsBtnMoreVisible(true);
     }
     if (
       shortCards.length > 8 &&
       544 < window.innerWidth &&
-      window.innerWidth < 1024
+      window.innerWidth <= 1024
     ) {
       setIsBtnMoreVisible(true);
     }
@@ -203,10 +226,13 @@ export default function Movies({ onClickMenu, loggedIn, onLikeCard, savedCards }
   }, [shortCards, isChecked]);
 
   function handleShowMoreCards() {
-    if (window.innerWidth >= 1024) {
+    if (window.innerWidth >= 1140) {
       setVisibleCards((prevValue) => prevValue + 4);
     }
-    if (544 < window.innerWidth && window.innerWidth < 1024) {
+    if (1025 <= window.innerWidth && window.innerWidth <= 1139) {
+      setVisibleCards((prevValue) => prevValue + 3);
+    }
+    if (544 < window.innerWidth && window.innerWidth <= 1024) {
       setVisibleCards((prevValue) => prevValue + 2);
     }
     if (window.innerWidth <= 544) {
@@ -239,22 +265,38 @@ export default function Movies({ onClickMenu, loggedIn, onLikeCard, savedCards }
     }
   }, [isChecked]);
 
+  // валидация
+  useEffect(() => {
+    const isValidSearch = RegExSearch.test(searchQuery);
+    setIsValid(isValidSearch);
+    setErrors("");
+    if (!isValidSearch) {
+      setIsValid(false);
+      setErrors("Нужно ввести ключевое слово");
+    }
+  }, [isSubmited]);
+
   useEffect(() => {
     // при монтировании берем инфо из ЛС
     if(searchQueryInStorage) {
       setIsSearchEmpty(false);
     }
+    setinItialCards(initialCardsInStorage);
     setFoundCards(foundCardsInStorage);
     setIsNofingFind("");
+    setErrors("");
 
     if (foundCardsInStorage.length === 0) {
       setIsNofingFind("Ничего не найдено");
     }
 
-    if (window.innerWidth >= 1024) {
+    if (window.innerWidth >= 1140) {
       setVisibleCards(16);
     }
-    if (544 < window.innerWidth && window.innerWidth < 1024) {
+    if (1025 <= window.innerWidth && window.innerWidth <= 1139) {
+      setVisibleCards(12);
+    }
+    if (544 < window.innerWidth && window.innerWidth <= 1024) {
       setVisibleCards(8);
     }
     if (window.innerWidth <= 544) {
@@ -262,10 +304,13 @@ export default function Movies({ onClickMenu, loggedIn, onLikeCard, savedCards }
     }
 
     const handleResize = () => {
-      if (window.innerWidth  >= 1024) {
+      if (window.innerWidth  >= 1140) {
         setVisibleCards((prevValue) => prevValue);
       }
-      if (544 < window.innerWidth && window.innerWidth < 1024) {
+      if (1025 <= window.innerWidth && window.innerWidth <= 1139) {
+        setVisibleCards((prevValue) => prevValue);
+      }
+      if (544 < window.innerWidth && window.innerWidth <= 1024) {
         setVisibleCards((prevValue) => prevValue);
       }
       if (window.innerWidth <= 544) {
@@ -294,14 +339,13 @@ export default function Movies({ onClickMenu, loggedIn, onLikeCard, savedCards }
           onSubmit={handleSearchFormSubmit}
           isChecked={isChecked}
           handleChangeCheckbox={handleChangeCheckbox}
-          //isDisabledBtn={!isValid}
           errorMessage={errors}
         />
         {isSearchEmpty || isLoading ? (
           <Preloader />
         ) : (
           <>
-            {!isChecked && (
+            {!isChecked && isValid && (
               <MoviesCardList
                 cards={foundCards}
                 isPathSaved={false}
@@ -310,7 +354,7 @@ export default function Movies({ onClickMenu, loggedIn, onLikeCard, savedCards }
                 savedCards={savedCards}
               />
             )}
-            {isChecked && (
+            {isChecked && isValid && (
               <MoviesCardList
                 cards={shortCards}
                 isPathSaved={false}
@@ -319,7 +363,7 @@ export default function Movies({ onClickMenu, loggedIn, onLikeCard, savedCards }
                 savedCards={savedCards}
               />
             )}
-            <div
+            {isValid && <div
               className={`movies__more ${
                 isBtnMoreVisible ? "" : "movies__more_off"
               }`}
@@ -331,7 +375,7 @@ export default function Movies({ onClickMenu, loggedIn, onLikeCard, savedCards }
               >
                 Ещё
               </button>
-            </div>
+            </div>}
             <div className="movies__nofind">{isNofingFind}</div>
             <span className="movies__error">{messageErrorForm}</span>
           </>

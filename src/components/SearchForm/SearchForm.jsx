@@ -11,16 +11,15 @@ export default function SearchForm({
   onSubmit,
   isChecked,
   handleChangeCheckbox,
-  isDisabledBtn,
   errorMessage
 }) {
 
   return (
-    <form id="formMovie" className="searchForm" onSubmit={onSubmit}>
+    <form id="formMovie" className="searchForm" onSubmit={onSubmit} noValidate>
       <div className="searchForm__container">
         <img className="searchForm__lens" src={lensGray} alt="лупа" />
         <Input value={valueInput} onChange={onChangeInput}/>
-        <BtnSearch isDisabled={isDisabledBtn}/>
+        <BtnSearch/>
         <div className="searchForm__vertical-line"></div>
         <FilterCheckbox
           isChecked={isChecked}

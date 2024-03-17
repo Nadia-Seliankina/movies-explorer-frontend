@@ -39,6 +39,32 @@ function App() {
 
   // сохраненные карточки
   const [savedCards, setSavedCards] = useState([]);
+  // карточки после сабмита поиска сохраненных фильмов
+  const [foundCards, setFoundCards] = useState([]);
+  // фильтр короткометражек сохраненных фильмов
+  const [shortCards, setShortCards] = useState([]);
+  // значение инпута поиска
+  const [searchQuery, setSearchQuery] = useState("");
+  // значение чекбокса
+  const [isChecked, setIsChecked] = useState(false);
+
+  // Поиск по массиву сохраненых карточек
+  function handleRequestSearch() {
+    setFoundCards(
+      savedCards.filter((item) => {
+        return (item.nameRU || item.nameEN)
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase());
+      })
+    );
+    if (isChecked) {
+      setShortCards(
+        foundCards.filter((item) => {
+          return item.duration <= 40;
+        })
+      );
+    }
+  }
 
   const navigate = useNavigate();
 
@@ -102,6 +128,8 @@ function App() {
       })
       .catch((err) => {
         console.log(`При проверке токена: ${err.message}`);
+        handleLogout();
+        navigate("/", { replace: true });
       })
       .finally(() => {
         setIsLoadingInfo(false);
@@ -216,6 +244,7 @@ function App() {
     setCurrentUser({});
     navigate("/", { replace: true });
     localStorage.clear();
+    sessionStorage.clear();
   };
 
   const handleClickEdit = (e) => {
@@ -279,6 +308,12 @@ function App() {
           setSavedCards(savedCards.filter((item) => {
             return item._id !== card._id;
           }));
+          setFoundCards(foundCards.filter((item) => {
+            return item._id !== card._id;
+          }));
+          setShortCards(shortCards.filter((item) => {
+            return item._id !== card._id;
+          }));
         })
         .catch((err) => {
           console.log(`При удалении фильма: ${err.message}`);
@@ -334,6 +369,10 @@ function App() {
     tokenCheck(token);
   }, [token]);
 
+  useEffect(() => {
+    setMessageErrorForm("");
+  }, []);
+
   // заглушка во время загрузки данных
   if (isLoadingInfo) {
     return "...Загрузка...>>>";
@@ -368,6 +407,13 @@ function App() {
                 onClickMenu={handleMenuClick}
                 savedCards={savedCards}
                 onLikeCard={handleCardLikeToggle}
+                foundCards={foundCards}
+                shortCards={shortCards}
+                handleRequestSearch={handleRequestSearch}
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
+                isChecked={isChecked}
+                setIsChecked={setIsChecked}
               />
             }
           />

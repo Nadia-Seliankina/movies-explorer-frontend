@@ -42,7 +42,7 @@ export default function Register({ onRegister, isSending, messageErrorForm, logg
         isSignup={true}
         onSubmitForm={handleSubmit}
         isDisabled={!isValid || isSending}
-        messageErrorForm={messageErrorForm}
+        messageErrorForm={messageErrorForm || ""}
       >
         <FieldsetElement
           label="Имя"
